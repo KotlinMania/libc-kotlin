@@ -172,7 +172,8 @@ targetOverrideProps.forEach { (propKey, rawValue) ->
 }
 val enabledTargets: Set<String> =
     allSupportedTargets.filterTo(linkedSetOf()) { targetName ->
-        targetOverrideProps["project.target.$targetName"]?.trim()?.lowercase() != "false"
+        // All retained targets are enabled unless gradle.properties explicitly opts out.
+        targetOverrideProps["project.target.$targetName"]?.trim()?.lowercase()?.toBooleanStrict() ?: true
     }
 
 fun targetEnabled(name: String): Boolean = name in enabledTargets
