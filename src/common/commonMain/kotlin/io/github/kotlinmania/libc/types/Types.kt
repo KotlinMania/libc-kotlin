@@ -16,7 +16,9 @@ import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
  * A transparent wrapper over `MaybeUninit<T>` to represent uninitialized padding
  * while providing `Default`.
  */
-internal class Padding<T>(public var value: MaybeUninit<T> = MaybeUninit.uninit(ObjectSlotLayout<T>())) {
+internal class Padding<T>(
+    public var value: MaybeUninit<T> = MaybeUninit.uninit(ObjectSlotLayout<T>()),
+) {
     public var field0: MaybeUninit<T>
         get() = value
         set(v) {
@@ -41,18 +43,14 @@ internal class Padding<T>(public var value: MaybeUninit<T> = MaybeUninit.uninit(
     /**
      * Padding fields are all equal, regardless of what is inside them, so they do not affect anything.
      */
-    public fun eq(other: Padding<T>): Boolean {
-        return true
-    }
+    public fun eq(other: Padding<T>): Boolean = true
 
     /**
      * Mark that `Padding` implements `Eq` so that it can be used in types that implement it.
      */
 
     public companion object {
-        public fun <T> default(): Padding<T> {
-            return Padding(MaybeUninit.zeroed(ObjectSlotLayout<T>()))
-        }
+        public fun <T> default(): Padding<T> = Padding(MaybeUninit.zeroed(ObjectSlotLayout<T>()))
 
         // Note: Change this into zeroed() and use MaybeUninit.zeroed()
         // when we depend on rustc 1.75.0.
