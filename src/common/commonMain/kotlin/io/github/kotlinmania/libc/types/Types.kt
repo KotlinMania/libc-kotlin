@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.types
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.rustlang.core.mem.MaybeUninit
 
 // Platform-agnostic support types.
 
