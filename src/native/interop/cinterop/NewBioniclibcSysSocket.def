@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.new.bioniclibc.sys.socket.cinterop
+headers = new_bioniclibc_sys_socket_wrapper.h
+headerFilter = new_bioniclibc_sys_socket_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_bioniclibc_sys_socket_wrapper.a
+linkerOpts.mingw = -lws2_32

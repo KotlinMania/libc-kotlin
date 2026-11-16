@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.vxworks
-
-import io.github.kotlinmania.libc.*
-
-public expect fun confstr(name: Int, buf: String?, len: ULong): ULong

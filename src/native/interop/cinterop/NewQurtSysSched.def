@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop
+headers = new_qurt_sys_sched_wrapper.h
+headerFilter = new_qurt_sys_sched_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_qurt_sys_sched_wrapper.a

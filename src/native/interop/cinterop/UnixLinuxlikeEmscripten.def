@@ -1,0 +1,7 @@
+package = io.github.kotlinmania.libc.unix.linuxlike.emscripten.cinterop
+headers = unix_linuxlike_emscripten_wrapper.h
+headerFilter = unix_linuxlike_emscripten_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_linuxlike_emscripten_wrapper.a
+linkerOpts.mingw = -lws2_32
+noStringConversion = libcUnixLinuxlikeEmscriptenShmOpen libcUnixLinuxlikeEmscriptenMkfifoat libcUnixLinuxlikeEmscriptenGlob libcUnixLinuxlikeEmscriptenShmUnlink libcUnixLinuxlikeEmscriptenGetgrnam libcUnixLinuxlikeEmscriptenGetgrnamR

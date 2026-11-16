@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.newlib.vita.cinterop
+headers = unix_newlib_vita_wrapper.h
+headerFilter = unix_newlib_vita_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_newlib_vita_wrapper.a

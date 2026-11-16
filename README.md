@@ -151,6 +151,17 @@ dependencies {
 ./gradlew test
 ```
 
+### Source layout
+
+Physical sources are grouped under `src/common`, `src/apple`, `src/android`,
+`src/jvm`, `src/js`, `src/native`, and `src/swift`, and wired directly by the root
+`build.gradle.kts` via `IdeSourceSetSupport`. Android managed sources live in
+`src/android/jvm/{androidMain,androidHostTest,androidDeviceTest}`; Android Native
+sources are under `src/android/native`. C interop inputs are in
+`src/native/interop/cinterop`, JNI sources in `src/jvm/jvmMain/c`, Node addon
+sources in `src/js/node-libc/src`, and the Node package/build specification in
+`src/js/node-libc/dist`. The Swift harness is in `src/swift/swift-test-harness`.
+
 ### Targets
 
 - macOS arm64
@@ -163,7 +174,7 @@ dependencies {
 
 ### Porting guidelines
 
-See [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) for translator discipline, port-lint header convention, and Rust → Kotlin idiom mapping.
+See [AGENTS.md](AGENTS.md) for translator discipline, port-lint header convention, and Rust → Kotlin idiom mapping.
 
 ### License
 

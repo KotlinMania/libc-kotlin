@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.hurd
-
-import io.github.kotlinmania.libc.*
-
-public expect fun fstatvfs64(fildes: Int, buf: Statvfs64?): Int

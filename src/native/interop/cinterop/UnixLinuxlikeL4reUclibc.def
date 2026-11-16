@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop
+headers = unix_linuxlike_l4re_uclibc_wrapper.h
+headerFilter = unix_linuxlike_l4re_uclibc_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_linuxlike_l4re_uclibc_wrapper.a

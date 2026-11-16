@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.new.netbsd.utmpx.cinterop
+headers = new_netbsd_utmpx_wrapper.h
+headerFilter = new_netbsd_utmpx_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_netbsd_utmpx_wrapper.a
+noStringConversion = libcNewNetbsdUtmpxUpdwtmpx libcNewNetbsdUtmpxGetlastlogx libcNewNetbsdUtmpxUpdlastlogx libcNewNetbsdUtmpxUtmpxname

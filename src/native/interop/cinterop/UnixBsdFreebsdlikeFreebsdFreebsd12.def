@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd12.cinterop
+headers = unix_bsd_freebsdlike_freebsd_freebsd12_wrapper.h
+headerFilter = unix_bsd_freebsdlike_freebsd_freebsd12_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_bsd_freebsdlike_freebsd_freebsd12_wrapper.a

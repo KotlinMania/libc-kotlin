@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix
-
-import io.github.kotlinmania.libc.*
-
-public expect fun confstr(name: Int, buf: COpaquePointer?, len: ULong): ULong

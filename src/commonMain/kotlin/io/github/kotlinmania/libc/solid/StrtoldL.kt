@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.solid
-
-import io.github.kotlinmania.libc.*
-
-public fun strtoldL(arg1: String?, arg2: COpaquePointer?, arg3: ULong): Double = 0.0

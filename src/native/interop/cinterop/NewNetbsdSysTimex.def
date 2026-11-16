@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.new.netbsd.sys.timex.cinterop
+headers = new_netbsd_sys_timex_wrapper.h
+headerFilter = new_netbsd_sys_timex_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_netbsd_sys_timex_wrapper.a

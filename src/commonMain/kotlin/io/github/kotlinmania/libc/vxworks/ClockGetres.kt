@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.vxworks
-
-import io.github.kotlinmania.libc.*
-
-public expect fun clockGetres(clockId: Int, res: Timespec?): Int

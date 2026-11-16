@@ -1,0 +1,22 @@
+// port-lint: source new/netbsd/sys/ipc.rs
+package io.github.kotlinmania.libc.new.netbsd.sys
+
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.GidT
+import io.github.kotlinmania.libc.KeyT
+import io.github.kotlinmania.libc.ModeT
+import io.github.kotlinmania.libc.UidT
+
+// Header: `sys / ipc.h`
+//
+// <https://github.com/NetBSD/src/blob/trunk/sys/sys/ipc.h>
+
+public open class IpcPerm(
+    public var uid: UidT,
+    public var gid: GidT,
+    public var cuid: UidT,
+    public var cgid: GidT,
+    public var mode: ModeT,
+    public var seq: CUshort,
+    public var key: KeyT,
+)

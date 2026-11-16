@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.nto.cinterop
+headers = unix_nto_neutrino_wrapper.h
+headerFilter = unix_nto_neutrino_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_nto_neutrino_wrapper.a

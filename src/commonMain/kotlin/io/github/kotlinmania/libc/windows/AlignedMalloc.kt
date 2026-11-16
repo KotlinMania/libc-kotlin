@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.windows
-
-import io.github.kotlinmania.libc.*
-
-public expect fun alignedMalloc(size: ULong, alignment: ULong): COpaquePointer?

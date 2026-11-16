@@ -1,9 +1,0 @@
-package io.github.kotlinmania.libc.unix.bsd.apple
-
-import io.github.kotlinmania.libc.*
-
-public data class Ifdevmtu(
-    val ifdmCurrent: Int,
-    val ifdmMin: Int,
-    val ifdmMax: Int,
-)

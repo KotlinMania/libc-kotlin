@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop
+headers = unix_linuxlike_linux_gnu_b64_s390x_wrapper.h
+headerFilter = unix_linuxlike_linux_gnu_b64_s390x_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_linuxlike_linux_gnu_b64_s390x_wrapper.a

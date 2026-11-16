@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
-
-import io.github.kotlinmania.libc.*
-
-public expect fun clockGetcpuclockid2(arg1: UInt, arg2: Int, arg3: Int?): Int

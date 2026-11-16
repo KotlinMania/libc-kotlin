@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.new.musl.sys.socket.cinterop
+headers = new_musl_sys_socket_wrapper.h
+headerFilter = new_musl_sys_socket_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_musl_sys_socket_wrapper.a

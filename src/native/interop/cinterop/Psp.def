@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.psp.cinterop
+headers = psp_wrapper.h
+headerFilter = psp_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = psp_wrapper.a

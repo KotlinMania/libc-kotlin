@@ -4,8 +4,8 @@ Stored and returned Kotlin function types generated 34 unchecked `Any` to `Funct
 
 | Contract family | Source |
 |---|---|
-| Signal restorers and handlers | `src/commonMain/kotlin/io/github/kotlinmania/libc/SignalCallbacks.kt` |
-| Signal notification payload | `src/commonMain/kotlin/io/github/kotlinmania/libc/unix/SignalNotification.kt` |
+| Signal restorers and handlers | `src/common/commonMain/kotlin/io/github/kotlinmania/libc/SignalCallbacks.kt` |
+| Signal notification payload | `src/common/commonMain/kotlin/io/github/kotlinmania/libc/unix/SignalNotification.kt` |
 | QuRT notification/action, VxWorks non-returning handlers | `new/qurt/SignalCallbacks.kt`, `vxworks/SignalCallbacks.kt` beneath the same package root |
 | Thirteen distinct allocator hooks | `unix/bsd/apple/b64/x8664/MallocZoneCallbacks.kt` |
 | Five file operations and nested selection notification | `unix/aix/FileOperationCallbacks.kt` |

@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.solid
-
-import io.github.kotlinmania.libc.*
-
-public expect fun gmtimeR(arg1: Long?, arg2: Tm?): Tm?

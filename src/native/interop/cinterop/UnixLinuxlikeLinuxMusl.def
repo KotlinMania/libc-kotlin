@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop
+headers = unix_linuxlike_linux_musl_wrapper.h
+headerFilter = unix_linuxlike_linux_musl_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_linuxlike_linux_musl_wrapper.a
+noStringConversion = libcUnixLinuxlikeLinuxMuslFanotifyMark libcUnixLinuxlikeLinuxMuslMemfdCreate libcUnixLinuxlikeLinuxMuslEuidaccess libcUnixLinuxlikeLinuxMuslEaccess libcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddchdirNp libcUnixLinuxlikeLinuxMuslUtmpxname

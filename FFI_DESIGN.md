@@ -26,16 +26,16 @@ pointers, with functions that take `*const`/`*mut` pointers.
 
 Follow the pattern proven in `socket2-kotlin` and `sha1-kotlin`:
 
-1. **C/C++ wrapper source** (`src/nativeInterop/cinterop/*.c` or `.cpp`)
+1. **C/C++ wrapper source** (`src/native/interop/cinterop/*.c` or `.cpp`)
    — real C code that calls the real C library functions or implements
    the same pointer arithmetic as the Rust `f!` macro blocks. This code
    is identical to what the C headers define and what the Rust code
    translates.
 
-2. **C header** (`src/nativeInterop/cinterop/*.h`) — declares the
+2. **C header** (`src/native/interop/cinterop/*.h`) — declares the
    wrapper functions as `extern "C"` so cinterop can see them.
 
-3. **cinterop `.def` file** (`src/nativeInterop/cinterop/libc.def`) —
+3. **cinterop `.def` file** (`src/native/interop/cinterop/libc.def`) —
    points cinterop at the wrapper header. cinterop generates Kotlin
    bindings for the C functions.
 
@@ -45,8 +45,8 @@ Follow the pattern proven in `socket2-kotlin` and `sha1-kotlin`:
    ```kotlin
    library {
        baseName.set("libc_wrapper")
-       source.from(file("src/nativeInterop/cinterop/libc_wrapper.cpp"))
-       privateHeaders.from(file("src/nativeInterop/cinterop"))
+       source.from(file("src/native/interop/cinterop/libc_wrapper.cpp"))
+       privateHeaders.from(file("src/native/interop/cinterop"))
        linkage.set(listOf(Linkage.STATIC))
        targetMachines.set(listOf(
            machines.macOS.architecture("aarch64"),
@@ -65,8 +65,8 @@ Follow the pattern proven in `socket2-kotlin` and `sha1-kotlin`:
    targets.withType<KotlinNativeTarget>().configureEach {
        compilations.getByName("main") {
            cinterops.create("libc") {
-               defFile = project.file("src/nativeInterop/cinterop/libc.def")
-               includeDirs(project.file("src/nativeInterop/cinterop"))
+               defFile = project.file("src/native/interop/cinterop/libc.def")
+               includeDirs(project.file("src/native/interop/cinterop"))
            }
        }
    }
@@ -191,7 +191,7 @@ public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
 - **Function signatures** for FFI functions — take `COpaquePointer`
   instead of data classes where the Rust original takes `*const`/`*mut`
 - **`build.gradle.kts`** — gains `cpp-library` plugin and cinterop wiring
-- **`src/nativeInterop/cinterop/`** — gains C/C++ wrapper source files
+- **`src/native/interop/cinterop/`** — gains C/C++ wrapper source files
 
 ### Key learnings (from Phase 1)
 
@@ -243,11 +243,11 @@ public actual fun cMSGDATA(cmsg: COpaquePointer?): COpaquePointer? {
 ### Reference implementations
 
 - **`socket2-kotlin`** — C++ wrapper + cinterop + static library pattern
-  (`src/nativeInterop/cinterop/socket2_wrapper.{c,cpp,h}`, `.def`, `build.gradle.kts`)
+  (`src/native/interop/cinterop/socket2_wrapper.{c,cpp,h}`, `.def`, `build.gradle.kts`)
 - **`sha1-kotlin`** — C++ wrapper + cinterop + ASM integration
-  (`src/nativeInterop/cinterop/sha1_asm_wrapper.{cpp,h}`, `.def`)
+  (`src/native/interop/cinterop/sha1_asm_wrapper.{cpp,h}`, `.def`)
 - **`android-system-properties-kotlin`** — C header wrapper + cinterop
-  for Android NDK (`src/nativeInterop/cinterop/androidsystemproperties_wrapper.h`)
+  for Android NDK (`src/native/interop/cinterop/androidsystemproperties_wrapper.h`)
 - **`windows-sys-kotlin`** — C header wrapper for Win32 FFI + JNA on JVM
 
 ## Pointer ownership for numeric parsing and string transformation

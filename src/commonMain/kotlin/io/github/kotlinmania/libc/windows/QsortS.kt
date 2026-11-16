@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.windows
-
-import io.github.kotlinmania.libc.*
-
-public expect fun qsortS(base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?, COpaquePointer?) -> Int)?, arg: COpaquePointer?)

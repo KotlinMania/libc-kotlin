@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix
-
-import io.github.kotlinmania.libc.*
-
-public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, num: ULong, size: ULong, compar: ((COpaquePointer?, COpaquePointer?) -> Int)?): COpaquePointer?

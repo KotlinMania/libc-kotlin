@@ -1,0 +1,1441 @@
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#include <napi.h>
+#include <cstdint>
+#include <cstddef>
+#include <cstdlib>
+#include <cstring>
+#include <cerrno>
+#include <string>
+#ifdef _WIN32
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#else
+#include <dlfcn.h>
+#ifndef RTLD_DEFAULT
+#define RTLD_DEFAULT ((void*)0)
+#endif
+#endif
+
+struct KmNapiRegistrarNode {
+    void (*register_fn)(Napi::Env, Napi::Object);
+    KmNapiRegistrarNode* next;
+};
+#if defined(__GNUC__) || defined(__clang__)
+__attribute__((visibility("hidden")))
+#endif
+extern KmNapiRegistrarNode* km_napi_registrar_head;
+
+namespace {
+
+static int64_t km_napi_arg_i64(const Napi::Value& v) {
+    if (v.IsNull() || v.IsUndefined()) return 0;
+    if (v.IsString()) {
+        std::string s = v.As<Napi::String>().Utf8Value();
+        return static_cast<int64_t>(std::strtoll(s.c_str(), nullptr, 10));
+    }
+    if (v.IsNumber()) return v.As<Napi::Number>().Int64Value();
+    return 0;
+}
+
+static uint64_t km_napi_arg_u64(const Napi::Value& v) {
+    if (v.IsNull() || v.IsUndefined()) return 0;
+    if (v.IsString()) {
+        std::string s = v.As<Napi::String>().Utf8Value();
+        return static_cast<uint64_t>(std::strtoull(s.c_str(), nullptr, 10));
+    }
+    if (v.IsNumber()) return static_cast<uint64_t>(v.As<Napi::Number>().Int64Value());
+    return 0;
+}
+
+static Napi::Value libcUnixNewlibGetrlimit_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getrlimit")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getrlimit")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getrlimit")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getrlimit")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getrlimit"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(resource, rlim);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSetrlimit_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "setrlimit")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_setrlimit")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "setrlimit")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_setrlimit")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "setrlimit"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(resource, rlim);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibStrerrorR_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t buflen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "strerror_r")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_strerror_r")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "strerror_r")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_strerror_r")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "strerror_r"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(errnum, buf, buflen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSemDestroy_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sem_destroy")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sem_destroy")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sem_destroy")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sem_destroy")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_destroy"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSemInit_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t value = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sem_init")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sem_init")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sem_init")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sem_init")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_init"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem, pshared, value);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibAbs_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t i = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "abs")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_abs")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "abs")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_abs")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "abs"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(i);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibLabs_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int64_t i = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
+    typedef int64_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "labs")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_labs")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "labs")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_labs")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "labs"));
+    }
+#endif
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(i);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
+}
+
+static Napi::Value libcUnixNewlibRand_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "rand")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_rand")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "rand")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_rand")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "rand"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSrand_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    typedef void (*km_fn_t)(uint32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "srand")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_srand")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "srand")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_srand")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "srand"));
+    }
+#endif
+    if (km_fn_ptr != nullptr) {
+        km_fn_ptr(seed);
+    } else {
+        errno = ENOSYS;
+    }
+    return km_env.Undefined();
+}
+
+static Napi::Value libcUnixNewlibBind_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "bind")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_bind")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "bind")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_bind")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "bind"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, addr, len);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibClockSettime_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint64_t clockId = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "clock_settime")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_clock_settime")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "clock_settime")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_clock_settime")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_settime"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clockId, tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibClockGettime_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint64_t clockId = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "clock_gettime")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_clock_gettime")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "clock_gettime")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_clock_gettime")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_gettime"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clockId, tp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibClockGetres_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint64_t clockId = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "clock_getres")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_clock_getres")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "clock_getres")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_clock_getres")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "clock_getres"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(clockId, res);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibClosesocket_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "closesocket")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_closesocket")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "closesocket")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_closesocket")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "closesocket"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sockfd);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibIoctl_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint64_t request = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
+    int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
+    int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
+    int64_t km_va2 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
+    int64_t km_va3 = km_info.Length() > 6 ? km_napi_arg_i64(km_info[6]) : 0;
+    typedef int32_t (*km_fn_t)(int32_t, uint64_t, ...);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "ioctl")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_ioctl")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "ioctl")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_ioctl")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "ioctl"));
+    }
+#endif
+    int32_t km_res = -1;
+    if (km_fn_ptr != nullptr) {
+        switch (km_vac) {
+            case 0: km_res = km_fn_ptr(fd, request); break;
+            case 1: km_res = km_fn_ptr(fd, request, static_cast<intptr_t>(km_va0)); break;
+            case 2: km_res = km_fn_ptr(fd, request, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
+            case 3: km_res = km_fn_ptr(fd, request, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
+            default: km_res = km_fn_ptr(fd, request, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
+        }
+    } else {
+        errno = ENOSYS;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibRecvfrom_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    void* addrLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "recvfrom")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_recvfrom")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "recvfrom")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_recvfrom")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "recvfrom"));
+    }
+#endif
+    int64_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, buf, n, flags, addr, addrLen);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
+}
+
+static Napi::Value libcUnixNewlibGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    char* host = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint32_t hostlen = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    char* serv = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    uint32_t servlen = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 6 ? km_info[6].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getnameinfo")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getnameinfo")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getnameinfo")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getnameinfo")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getnameinfo"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sa, salen, host, hostlen, serv, servlen, flags);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibMemalign_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    typedef void* (*km_fn_t)(uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "memalign")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_memalign")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "memalign")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_memalign")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "memalign"));
+    }
+#endif
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(align, size);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
+}
+
+static Napi::Value libcUnixNewlibFexecve_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    typedef int32_t (*km_fn_t)(int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "fexecve")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_fexecve")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "fexecve")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_fexecve")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "fexecve"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(fd, argv, envp);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGettimeofday_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "gettimeofday")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_gettimeofday")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "gettimeofday")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_gettimeofday")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "gettimeofday"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(tp, tz);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getgrgid_r")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getgrgid_r")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getgrgid_r")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getgrgid_r")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrgid_r"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(gid, grp, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSigaltstack_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* ss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* oss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sigaltstack")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sigaltstack")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sigaltstack")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sigaltstack")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sigaltstack"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(ss, oss);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSemClose_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sem_close")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sem_close")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sem_close")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sem_close")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_close"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(sem);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGetdtablesize_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getdtablesize")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getdtablesize")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getdtablesize")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getdtablesize")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getdtablesize"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr();
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getgrnam_r")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getgrnam_r")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getgrnam_r")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getgrnam_r")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrnam_r"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, grp, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* oldset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    typedef int32_t (*km_fn_t)(int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "pthread_sigmask")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_pthread_sigmask")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "pthread_sigmask")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_pthread_sigmask")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_sigmask"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(how, set, oldset);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSemOpen_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
+    int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
+    int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
+    int64_t km_va2 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
+    int64_t km_va3 = km_info.Length() > 6 ? km_napi_arg_i64(km_info[6]) : 0;
+    typedef void* (*km_fn_t)(const char*, int32_t, ...);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sem_open")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sem_open")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sem_open")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sem_open")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_open"));
+    }
+#endif
+    void* km_res = nullptr;
+    if (km_fn_ptr != nullptr) {
+        switch (km_vac) {
+            case 0: km_res = km_fn_ptr(name, oflag); break;
+            case 1: km_res = km_fn_ptr(name, oflag, static_cast<intptr_t>(km_va0)); break;
+            case 2: km_res = km_fn_ptr(name, oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
+            case 3: km_res = km_fn_ptr(name, oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
+            default: km_res = km_fn_ptr(name, oflag, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
+        }
+    } else {
+        errno = ENOSYS;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
+}
+
+static Napi::Value libcUnixNewlibGetgrnam_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    typedef void* (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getgrnam")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getgrnam")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getgrnam")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getgrnam")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrnam"));
+    }
+#endif
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
+}
+
+static Napi::Value libcUnixNewlibPthreadKill_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "pthread_kill")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_pthread_kill")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "pthread_kill")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_pthread_kill")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_kill"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(thread, sig);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSemUnlink_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    typedef int32_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sem_unlink")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sem_unlink")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sem_unlink")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sem_unlink")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sem_unlink"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibDaemon_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    int32_t nochdir = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t noclose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    typedef int32_t (*km_fn_t)(int32_t, int32_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "daemon")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_daemon")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "daemon")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_daemon")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "daemon"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(nochdir, noclose);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGetpwnamR_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getpwnam_r")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getpwnam_r")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getpwnam_r")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getpwnam_r")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpwnam_r"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(name, pwd, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGetpwuidR_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint16_t uid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getpwuid_r")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getpwuid_r")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getpwuid_r")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getpwuid_r")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getpwuid_r"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(uid, pwd, buf, buflen, result);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibSigwait_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "sigwait")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_sigwait")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "sigwait")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_sigwait")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "sigwait"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(set, sig);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* child = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    typedef int32_t (*km_fn_t)(void*, void*, void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "pthread_atfork")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_pthread_atfork")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "pthread_atfork")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_pthread_atfork")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "pthread_atfork"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(prepare, parent, child);
+    } else {
+        errno = ENOSYS;
+        km_res = ENOSYS;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static Napi::Value libcUnixNewlibGetgrgid_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    typedef void* (*km_fn_t)(uint16_t);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "getgrgid")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_getgrgid")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "getgrgid")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_getgrgid")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "getgrgid"));
+    }
+#endif
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(gid);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
+}
+
+static Napi::Value libcUnixNewlibPopen_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    const char* command = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    typedef void* (*km_fn_t)(const char*, const char*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "popen")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_popen")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "popen")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_popen")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "popen"));
+    }
+#endif
+    void* km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(command, mode);
+    } else {
+        errno = ENOSYS;
+        km_res = nullptr;
+    }
+    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
+}
+
+static Napi::Value libcUnixNewlibUname_napi(const Napi::CallbackInfo& km_info) {
+    Napi::Env km_env = km_info.Env();
+    void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = nullptr;
+#ifdef _WIN32
+    if (km_fn_ptr == nullptr) {
+        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "uname")));
+        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_uname")));
+        if (km_fn_ptr == nullptr) {
+            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "uname")));
+            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_uname")));
+        }
+    }
+#else
+    if (km_fn_ptr == nullptr) {
+        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "uname"));
+    }
+#endif
+    int32_t km_res;
+    if (km_fn_ptr != nullptr) {
+        km_res = km_fn_ptr(buf);
+    } else {
+        errno = ENOSYS;
+        km_res = -1;
+    }
+    return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
+}
+
+static void register_unix_newlib_napi(Napi::Env env, Napi::Object exports) {
+    exports.Set("libcUnixNewlibGetrlimit", Napi::Function::New(env, libcUnixNewlibGetrlimit_napi));
+    exports.Set("libcUnixNewlibSetrlimit", Napi::Function::New(env, libcUnixNewlibSetrlimit_napi));
+    exports.Set("libcUnixNewlibStrerrorR", Napi::Function::New(env, libcUnixNewlibStrerrorR_napi));
+    exports.Set("libcUnixNewlibSemDestroy", Napi::Function::New(env, libcUnixNewlibSemDestroy_napi));
+    exports.Set("libcUnixNewlibSemInit", Napi::Function::New(env, libcUnixNewlibSemInit_napi));
+    exports.Set("libcUnixNewlibAbs", Napi::Function::New(env, libcUnixNewlibAbs_napi));
+    exports.Set("libcUnixNewlibLabs", Napi::Function::New(env, libcUnixNewlibLabs_napi));
+    exports.Set("libcUnixNewlibRand", Napi::Function::New(env, libcUnixNewlibRand_napi));
+    exports.Set("libcUnixNewlibSrand", Napi::Function::New(env, libcUnixNewlibSrand_napi));
+    exports.Set("libcUnixNewlibBind", Napi::Function::New(env, libcUnixNewlibBind_napi));
+    exports.Set("libcUnixNewlibClockSettime", Napi::Function::New(env, libcUnixNewlibClockSettime_napi));
+    exports.Set("libcUnixNewlibClockGettime", Napi::Function::New(env, libcUnixNewlibClockGettime_napi));
+    exports.Set("libcUnixNewlibClockGetres", Napi::Function::New(env, libcUnixNewlibClockGetres_napi));
+    exports.Set("libcUnixNewlibClosesocket", Napi::Function::New(env, libcUnixNewlibClosesocket_napi));
+    exports.Set("libcUnixNewlibIoctl", Napi::Function::New(env, libcUnixNewlibIoctl_napi));
+    exports.Set("libcUnixNewlibRecvfrom", Napi::Function::New(env, libcUnixNewlibRecvfrom_napi));
+    exports.Set("libcUnixNewlibGetnameinfo", Napi::Function::New(env, libcUnixNewlibGetnameinfo_napi));
+    exports.Set("libcUnixNewlibMemalign", Napi::Function::New(env, libcUnixNewlibMemalign_napi));
+    exports.Set("libcUnixNewlibFexecve", Napi::Function::New(env, libcUnixNewlibFexecve_napi));
+    exports.Set("libcUnixNewlibGettimeofday", Napi::Function::New(env, libcUnixNewlibGettimeofday_napi));
+    exports.Set("libcUnixNewlibGetgrgidR", Napi::Function::New(env, libcUnixNewlibGetgrgidR_napi));
+    exports.Set("libcUnixNewlibSigaltstack", Napi::Function::New(env, libcUnixNewlibSigaltstack_napi));
+    exports.Set("libcUnixNewlibSemClose", Napi::Function::New(env, libcUnixNewlibSemClose_napi));
+    exports.Set("libcUnixNewlibGetdtablesize", Napi::Function::New(env, libcUnixNewlibGetdtablesize_napi));
+    exports.Set("libcUnixNewlibGetgrnamR", Napi::Function::New(env, libcUnixNewlibGetgrnamR_napi));
+    exports.Set("libcUnixNewlibPthreadSigmask", Napi::Function::New(env, libcUnixNewlibPthreadSigmask_napi));
+    exports.Set("libcUnixNewlibSemOpen", Napi::Function::New(env, libcUnixNewlibSemOpen_napi));
+    exports.Set("libcUnixNewlibGetgrnam", Napi::Function::New(env, libcUnixNewlibGetgrnam_napi));
+    exports.Set("libcUnixNewlibPthreadKill", Napi::Function::New(env, libcUnixNewlibPthreadKill_napi));
+    exports.Set("libcUnixNewlibSemUnlink", Napi::Function::New(env, libcUnixNewlibSemUnlink_napi));
+    exports.Set("libcUnixNewlibDaemon", Napi::Function::New(env, libcUnixNewlibDaemon_napi));
+    exports.Set("libcUnixNewlibGetpwnamR", Napi::Function::New(env, libcUnixNewlibGetpwnamR_napi));
+    exports.Set("libcUnixNewlibGetpwuidR", Napi::Function::New(env, libcUnixNewlibGetpwuidR_napi));
+    exports.Set("libcUnixNewlibSigwait", Napi::Function::New(env, libcUnixNewlibSigwait_napi));
+    exports.Set("libcUnixNewlibPthreadAtfork", Napi::Function::New(env, libcUnixNewlibPthreadAtfork_napi));
+    exports.Set("libcUnixNewlibGetgrgid", Napi::Function::New(env, libcUnixNewlibGetgrgid_napi));
+    exports.Set("libcUnixNewlibPopen", Napi::Function::New(env, libcUnixNewlibPopen_napi));
+    exports.Set("libcUnixNewlibUname", Napi::Function::New(env, libcUnixNewlibUname_napi));
+}
+
+static KmNapiRegistrarNode registrar_node = { &register_unix_newlib_napi, nullptr };
+struct KmNapiAutoRegister {
+    KmNapiAutoRegister() {
+        registrar_node.next = km_napi_registrar_head;
+        km_napi_registrar_head = &registrar_node;
+    }
+};
+static KmNapiAutoRegister auto_register_instance;
+
+} // namespace
+
+#ifdef KM_NAPI_STANDALONE_MODULE
+#if defined(__GNUC__) || defined(__clang__)
+__attribute__((visibility("hidden")))
+#endif
+KmNapiRegistrarNode* km_napi_registrar_head = nullptr;
+static Napi::Object KmNapiStandaloneInit(Napi::Env env, Napi::Object exports) {
+    for (KmNapiRegistrarNode* cur = km_napi_registrar_head; cur != nullptr; cur = cur->next) {
+        cur->register_fn(env, exports);
+    }
+    return exports;
+}
+NODE_API_MODULE(NODE_GYP_MODULE_NAME, KmNapiStandaloneInit)
+#endif

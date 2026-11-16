@@ -1,0 +1,181 @@
+#ifndef LIBC_UNIX_BSD_NETBSDLIKE_NETBSD_UNIX_BSD_NETBSDLIKE_NETBSD_WRAPPER_H
+#define LIBC_UNIX_BSD_NETBSDLIKE_NETBSD_UNIX_BSD_NETBSDLIKE_NETBSD_WRAPPER_H
+
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int32_t libcUnixBsdNetbsdlikeNetbsdClockNanosleep(int32_t clkId, int32_t flags, void* rqtp, void* rmtp);
+int32_t libcUnixBsdNetbsdlikeNetbsdReallocarr(void* ptr, uint64_t number, uint64_t size);
+int32_t libcUnixBsdNetbsdlikeNetbsdChflags(const char* path, uint64_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdFchflags(int32_t fd, uint64_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdLchflags(const char* path, uint64_t flags);
+int64_t libcUnixBsdNetbsdlikeNetbsdExtattrListFd(int32_t fd, int32_t attrnamespace, void* data, uint64_t nbytes);
+int64_t libcUnixBsdNetbsdlikeNetbsdExtattrListFile(const char* path, int32_t attrnamespace, void* data, uint64_t nbytes);
+int64_t libcUnixBsdNetbsdlikeNetbsdExtattrListLink(const char* path, int32_t attrnamespace, void* data, uint64_t nbytes);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFd(int32_t fd, int32_t attrnamespace, const char* attrname);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFile(const char* path, int32_t attrnamespace, const char* attrname);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrDeleteLink(const char* path, int32_t attrnamespace, const char* attrname);
+int64_t libcUnixBsdNetbsdlikeNetbsdExtattrGetFd(int32_t fd, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes);
+int64_t libcUnixBsdNetbsdlikeNetbsdExtattrGetFile(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes);
+int64_t libcUnixBsdNetbsdlikeNetbsdExtattrGetLink(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrNamespaceToString(int32_t attrnamespace, void* string);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrSetFd(int32_t fd, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrSetFile(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrSetLink(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes);
+int32_t libcUnixBsdNetbsdlikeNetbsdExtattrStringToNamespace(const char* string, void* attrnamespace);
+int32_t libcUnixBsdNetbsdlikeNetbsdOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp);
+int32_t libcUnixBsdNetbsdlikeNetbsdForkpty(void* amaster, char* name, void* termp, void* winp);
+int32_t libcUnixBsdNetbsdlikeNetbsdPtsnameR(int32_t fd, char* buf, uint64_t buflen);
+int32_t libcUnixBsdNetbsdlikeNetbsdLutimes(const char* file, void* times);
+int32_t libcUnixBsdNetbsdlikeNetbsdGettimeofday(void* tp, void* tz);
+int32_t libcUnixBsdNetbsdlikeNetbsdGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdMprotect(void* addr, uint64_t len, int32_t prot);
+int32_t libcUnixBsdNetbsdlikeNetbsdSysctl(void* name, uint32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libcUnixBsdNetbsdlikeNetbsdSysctlbyname(const char* name, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libcUnixBsdNetbsdlikeNetbsdSysctlnametomib(const char* sname, void* name, void* namelenp);
+int32_t libcUnixBsdNetbsdlikeNetbsdKevent(int32_t kq, void* changelist, uint64_t nchanges, void* eventlist, uint64_t nevents, void* timeout);
+int32_t libcUnixBsdNetbsdlikeNetbsdMount(const char* src, const char* target, int32_t flags, void* data, uint64_t size);
+void* libcUnixBsdNetbsdlikeNetbsdMqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqClose(void* mqd);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqGetattr(void* mqd, void* attr);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqNotify(void* mqd, void* notification);
+int64_t libcUnixBsdNetbsdlikeNetbsdMqReceive(void* mqd, char* msgPtr, uint64_t msgLen, void* msgPrio);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqSend(void* mqd, const char* msgPtr, uint64_t msgLen, uint32_t msgPrio);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqSetattr(void* mqd, void* newattr, void* oldattr);
+int64_t libcUnixBsdNetbsdlikeNetbsdMqTimedreceive(void* mqd, char* msgPtr, uint64_t msgLen, void* msgPrio, void* absTimeout);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqTimedsend(void* mqd, const char* msgPtr, uint64_t msgLen, uint32_t msgPrio, void* absTimeout);
+int32_t libcUnixBsdNetbsdlikeNetbsdMqUnlink(const char* name);
+int32_t libcUnixBsdNetbsdlikeNetbsdPtrace(int32_t request, int32_t pid, void* addr, int32_t data);
+int32_t libcUnixBsdNetbsdlikeNetbsdUtrace(const char* label, void* addr, uint64_t len);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadGetnameNp(void* t, char* name, uint64_t len);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadSetnameNp(void* t, const char* name, void* arg);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetNp(void* thread, void* attr);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadGetattrNp(void* native, void* attr);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetguardsize(void* attr, void* guardsize);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadAttrSetguardsize(void* attr, uint64_t guardsize);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadGetaffinityNp(void* thread, uint64_t size, void* set);
+int32_t libcUnixBsdNetbsdlikeNetbsdPthreadSetaffinityNp(void* thread, uint64_t size, void* set);
+void* libcUnixBsdNetbsdlikeNetbsdCpusetCreate(void);
+void libcUnixBsdNetbsdlikeNetbsdCpusetDestroy(void* set);
+int32_t libcUnixBsdNetbsdlikeNetbsdCpusetClr(uint64_t cpu, void* set);
+int32_t libcUnixBsdNetbsdlikeNetbsdCpusetSet(uint64_t cpu, void* set);
+int32_t libcUnixBsdNetbsdlikeNetbsdCpusetIsset(uint64_t cpu, void* set);
+uint64_t libcUnixBsdNetbsdlikeNetbsdCpusetSize(void* set);
+void libcUnixBsdNetbsdlikeNetbsdCpusetZero(void* set);
+int32_t libcUnixBsdNetbsdlikeNetbsdSigtimedwait(void* set, void* info, void* timeout);
+int32_t libcUnixBsdNetbsdlikeNetbsdSigwaitinfo(void* set, void* info);
+void* libcUnixBsdNetbsdlikeNetbsdDuplocale(void* base);
+void libcUnixBsdNetbsdlikeNetbsdFreelocale(void* loc);
+void* libcUnixBsdNetbsdlikeNetbsdLocaleconvL(void* loc);
+void* libcUnixBsdNetbsdlikeNetbsdNewlocale(int32_t mask, const char* locale, void* base);
+int32_t libcUnixBsdNetbsdlikeNetbsdSettimeofday(void* tv, void* tz);
+int32_t libcUnixBsdNetbsdlikeNetbsdDup3(int32_t src, int32_t dst, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdKqueue1(int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdLwpSelf(void);
+void* libcUnixBsdNetbsdlikeNetbsdMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen);
+int32_t libcUnixBsdNetbsdlikeNetbsdDlIteratePhdr(void* callback, void* data);
+void* libcUnixBsdNetbsdlikeNetbsdDlauxinfo(void);
+void* libcUnixBsdNetbsdlikeNetbsdIconvOpen(const char* tocode, const char* fromcode);
+uint64_t libcUnixBsdNetbsdlikeNetbsdIconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft);
+int32_t libcUnixBsdNetbsdlikeNetbsdIconvClose(void* cd);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerCreate(int32_t clockid, void* sevp, void* timerid);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerDelete(void* timerid);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerGetoverrun(void* timerid);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerGettime(void* timerid, void* currValue);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerSettime(void* timerid, int32_t flags, void* newValue, void* oldValue);
+void* libcUnixBsdNetbsdlikeNetbsdDlvsym(void* handle, const char* symbol, const char* version);
+void libcUnixBsdNetbsdlikeNetbsdExplicitMemset(void* b, int32_t c, uint64_t len);
+int32_t libcUnixBsdNetbsdlikeNetbsdConsttimeMemequal(void* a, void* b, uint64_t len);
+void libcUnixBsdNetbsdlikeNetbsdSetproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+void* libcUnixBsdNetbsdlikeNetbsdMremap(void* oldp, uint64_t oldsize, void* newp, uint64_t newsize, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdSchedRrGetInterval(int32_t pid, void* t);
+int32_t libcUnixBsdNetbsdlikeNetbsdSchedSetparam(int32_t pid, void* param);
+int32_t libcUnixBsdNetbsdlikeNetbsdSchedGetparam(int32_t pid, void* param);
+int32_t libcUnixBsdNetbsdlikeNetbsdSchedGetscheduler(int32_t pid);
+int32_t libcUnixBsdNetbsdlikeNetbsdSchedSetscheduler(int32_t pid, int32_t policy, void* param);
+int32_t libcUnixBsdNetbsdlikeNetbsdPollts(void* fds, uint32_t nfds, void* ts, void* sigmask);
+int64_t libcUnixBsdNetbsdlikeNetbsdGetrandom(void* buf, uint64_t buflen, uint32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdReboot(int32_t mode, char* bootstr);
+int32_t libcUnixBsdNetbsdlikeNetbsdLwpPark(int32_t clock, int32_t flags, void* ts, int32_t unpark, void* hint, void* unparkhint);
+int32_t libcUnixBsdNetbsdlikeNetbsdLwpUnpark(int32_t lwp, void* hint);
+int32_t libcUnixBsdNetbsdlikeNetbsdLwpUnparkAll(void* targets, uint64_t ntargets, void* hint);
+int32_t libcUnixBsdNetbsdlikeNetbsdGetmntinfo(void* mntbufp, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdGetvfsstat(void* buf, uint64_t bufsize, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdEventfd(uint32_t val, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdEventfdRead(int32_t efd, void* valp);
+int32_t libcUnixBsdNetbsdlikeNetbsdEventfdWrite(int32_t efd, uint64_t val);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerfdCreate(int32_t clockid, int32_t flags);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerfdGettime(int32_t fd, void* currValue);
+int32_t libcUnixBsdNetbsdlikeNetbsdTimerfdSettime(int32_t fd, int32_t flags, void* newValue, void* oldValue);
+void libcUnixBsdNetbsdlikeNetbsdQsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg);
+int32_t libcUnixBsdNetbsdlikeNetbsdAioRead(void* aiocbp);
+int32_t libcUnixBsdNetbsdlikeNetbsdAioWrite(void* aiocbp);
+int32_t libcUnixBsdNetbsdlikeNetbsdAioFsync(int32_t op, void* aiocbp);
+int32_t libcUnixBsdNetbsdlikeNetbsdAioError(void* aiocbp);
+int64_t libcUnixBsdNetbsdlikeNetbsdAioReturn(void* aiocbp);
+int32_t libcUnixBsdNetbsdlikeNetbsdAioSuspend(void* aiocbList, int32_t nitems, void* timeout);
+int32_t libcUnixBsdNetbsdlikeNetbsdAioCancel(int32_t fd, void* aiocbp);
+int32_t libcUnixBsdNetbsdlikeNetbsdLioListio(int32_t mode, void* aiocbList, int32_t nitems, void* sevp);
+int32_t libcUnixBsdNetbsdlikeNetbsdGetpwentR(void* pwd, char* buf, uint64_t buflen, void* result);
+int32_t libcUnixBsdNetbsdlikeNetbsdGetgrentR(void* grp, char* buf, uint64_t buflen, void* result);
+void* libcUnixBsdNetbsdlikeNetbsdEmalloc(uint64_t n);
+void* libcUnixBsdNetbsdlikeNetbsdEcalloc(uint64_t n, uint64_t c);
+void* libcUnixBsdNetbsdlikeNetbsdErealloc(void* p, uint64_t n);
+void libcUnixBsdNetbsdlikeNetbsdEreallocarr(void* p, uint64_t n, uint64_t s);
+char* libcUnixBsdNetbsdlikeNetbsdEstrdup(const char* s);
+char* libcUnixBsdNetbsdlikeNetbsdEstrndup(const char* s, uint64_t len);
+uint64_t libcUnixBsdNetbsdlikeNetbsdEstrlcpy(char* dst, const char* src, uint64_t len);
+uint64_t libcUnixBsdNetbsdlikeNetbsdEstrlcat(char* dst, const char* src, uint64_t len);
+int64_t libcUnixBsdNetbsdlikeNetbsdEstrtoi(const char* nptr, int32_t base, int64_t lo, int64_t hi);
+uint64_t libcUnixBsdNetbsdlikeNetbsdEstrtou(const char* nptr, int32_t base, uint64_t lo, uint64_t hi);
+int32_t libcUnixBsdNetbsdlikeNetbsdEasprintf(void* string, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+int32_t libcUnixBsdNetbsdlikeNetbsdEvasprintf(void* string, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3);
+void* libcUnixBsdNetbsdlikeNetbsdEsetfunc(void* cb);
+int32_t libcUnixBsdNetbsdlikeNetbsdSecurePath(const char* path);
+int32_t libcUnixBsdNetbsdlikeNetbsdSnprintb(char* buf, uint64_t buflen, const char* fmt, uint64_t val);
+int32_t libcUnixBsdNetbsdlikeNetbsdSnprintbM(char* buf, uint64_t buflen, const char* fmt, uint64_t val, uint64_t max);
+const char* libcUnixBsdNetbsdlikeNetbsdGetbootfile(void);
+int32_t libcUnixBsdNetbsdlikeNetbsdGetbyteorder(void);
+const char* libcUnixBsdNetbsdlikeNetbsdGetdiskrawname(char* buf, uint64_t buflen, const char* name);
+const char* libcUnixBsdNetbsdlikeNetbsdGetdiskcookedname(char* buf, uint64_t buflen, const char* name);
+const char* libcUnixBsdNetbsdlikeNetbsdGetfsspecname(char* buf, uint64_t buflen, const char* spec);
+char* libcUnixBsdNetbsdlikeNetbsdStrpct(char* buf, uint64_t bufsiz, uint64_t numerator, uint64_t denominator, uint64_t precision);
+char* libcUnixBsdNetbsdlikeNetbsdStrspct(char* buf, uint64_t bufsiz, int64_t numerator, int64_t denominator, uint64_t precision);
+void libcUnixBsdNetbsdlikeNetbsdLogin(void* ut);
+void libcUnixBsdNetbsdlikeNetbsdLoginx(void* ut);
+void libcUnixBsdNetbsdlikeNetbsdLogout(const char* line);
+void libcUnixBsdNetbsdlikeNetbsdLogoutx(const char* line, int32_t status, int32_t tpe);
+void libcUnixBsdNetbsdlikeNetbsdLogwtmp(const char* line, const char* name, const char* host);
+void libcUnixBsdNetbsdlikeNetbsdLogwtmpx(const char* line, const char* name, const char* host, int32_t status, int32_t tpe);
+int64_t libcUnixBsdNetbsdlikeNetbsdGetxattr(const char* path, const char* name, void* value, uint64_t size);
+int64_t libcUnixBsdNetbsdlikeNetbsdLgetxattr(const char* path, const char* name, void* value, uint64_t size);
+int64_t libcUnixBsdNetbsdlikeNetbsdFgetxattr(int32_t filedes, const char* name, void* value, uint64_t size);
+int32_t libcUnixBsdNetbsdlikeNetbsdSetxattr(const char* path, const char* name, void* value, uint64_t size);
+int32_t libcUnixBsdNetbsdlikeNetbsdLsetxattr(const char* path, const char* name, void* value, uint64_t size);
+int32_t libcUnixBsdNetbsdlikeNetbsdFsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, int32_t flags);
+int64_t libcUnixBsdNetbsdlikeNetbsdListxattr(const char* path, char* list, uint64_t size);
+int64_t libcUnixBsdNetbsdlikeNetbsdLlistxattr(const char* path, char* list, uint64_t size);
+int64_t libcUnixBsdNetbsdlikeNetbsdFlistxattr(int32_t filedes, char* list, uint64_t size);
+int32_t libcUnixBsdNetbsdlikeNetbsdRemovexattr(const char* path, const char* name);
+int32_t libcUnixBsdNetbsdlikeNetbsdLremovexattr(const char* path, const char* name);
+int32_t libcUnixBsdNetbsdlikeNetbsdFremovexattr(int32_t fd, const char* path, const char* name);
+int32_t libcUnixBsdNetbsdlikeNetbsdStringToFlags(void* stringP, void* setp, void* clrp);
+int32_t libcUnixBsdNetbsdlikeNetbsdFlagsToString(uint64_t flags, const char* def);
+void* libcUnixBsdNetbsdlikeNetbsdKinfoGetvmmap(int32_t pid, void* cntp);
+uint64_t libcUnixBsdNetbsdlikeNetbsdBacktrace(void* addrlist, uint64_t len);
+void* libcUnixBsdNetbsdlikeNetbsdBacktraceSymbols(void* addrlist, uint64_t len);
+int32_t libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFd(void* addrlist, uint64_t len, int32_t fd);
+void* libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFmt(void* addrlist, uint64_t len, const char* fmt);
+int32_t libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFdFmt(void* addrlist, uint64_t len, int32_t fd, const char* fmt);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LIBC_UNIX_BSD_NETBSDLIKE_NETBSD_UNIX_BSD_NETBSDLIKE_NETBSD_WRAPPER_H */

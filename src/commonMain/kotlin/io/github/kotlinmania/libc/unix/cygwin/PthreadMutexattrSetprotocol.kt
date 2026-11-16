@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.unix.cygwin
-
-import io.github.kotlinmania.libc.*
-
-public expect fun pthreadMutexattrSetprotocol(attr: io.github.kotlinmania.libc.COpaquePointer?, protocol: Int): Int

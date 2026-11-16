@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.new.qurt.time.cinterop
+headers = new_qurt_time_wrapper.h
+headerFilter = new_qurt_time_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_qurt_time_wrapper.a
+noStringConversion = libcNewQurtTimeStrftime libcNewQurtTimeStrptime

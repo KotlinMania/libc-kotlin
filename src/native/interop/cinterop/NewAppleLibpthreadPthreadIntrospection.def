@@ -1,0 +1,5 @@
+package = io.github.kotlinmania.libc.new.apple.libpthread.pthread.introspection.cinterop
+headers = new_apple_libpthread_pthread_introspection_wrapper.h
+headerFilter = new_apple_libpthread_pthread_introspection_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = new_apple_libpthread_pthread_introspection_wrapper.a

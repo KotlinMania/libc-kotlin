@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.unix.bsd.apple.b64.cinterop
+headers = unix_bsd_apple_b64_wrapper.h
+headerFilter = unix_bsd_apple_b64_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = unix_bsd_apple_b64_wrapper.a
+noStringConversion = libcUnixBsdAppleB64Exchangedata

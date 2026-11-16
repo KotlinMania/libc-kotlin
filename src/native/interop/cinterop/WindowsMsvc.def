@@ -1,0 +1,6 @@
+package = io.github.kotlinmania.libc.windows.msvc.cinterop
+headers = windows_msvc_wrapper.h
+headerFilter = windows_msvc_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = windows_msvc_wrapper.a
+noStringConversion = libcWindowsMsvcStricmp libcWindowsMsvcStrnicmp

@@ -1,0 +1,7 @@
+package = io.github.kotlinmania.libc.teeos.cinterop
+headers = teeos_wrapper.h
+headerFilter = teeos_wrapper.h
+compilerOpts = -Isrc/native/interop/cinterop
+staticLibraries = teeos_wrapper.a
+linkerOpts.mingw = -lws2_32
+noStringConversion = libcTeeosPrintf libcTeeosScanf libcTeeosSnprintf libcTeeosSprintf libcTeeosVsnprintf libcTeeosVsprintf libcTeeosStrftime libcTeeosSemOpen libcTeeosSemUnlink libcTeeosSetlocale libcTeeosStrcoll libcTeeosStrxfrm libcTeeosStrtod libcTeeosMbrtowc libcTeeosStrchr libcTeeosStrlen libcTeeosStrcmp libcTeeosStrcpy libcTeeosStrncmp libcTeeosStrncpy libcTeeosStrnlen libcTeeosStrrchr libcTeeosStrstr libcTeeosAtof libcTeeosAtoi libcTeeosAtol libcTeeosAtoll libcTeeosStrtoul libcTeeosStrtol

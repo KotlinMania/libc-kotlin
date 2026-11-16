@@ -1,0 +1,8413 @@
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#include "unix_bsd_freebsdlike_freebsd_wrapper.h"
+#include <errno.h>
+#ifdef _WIN32
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#else
+#include <dlfcn.h>
+#ifndef RTLD_DEFAULT
+#define RTLD_DEFAULT ((void*)0)
+#endif
+#endif
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFhlink(void* fhp, const char* to) {
+    typedef int32_t (*km_fn_t)(void*, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fhlink");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fhlink");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fhlink");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fhlink");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhlink");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fhp, to);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFhlinkat(void* fhp, int32_t tofd, const char* to) {
+    typedef int32_t (*km_fn_t)(void*, int32_t, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fhlinkat");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fhlinkat");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fhlinkat");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fhlinkat");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhlinkat");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fhp, tofd, to);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFhreadlink(void* fhp, char* buf, uint64_t bufsize) {
+    typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fhreadlink");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fhreadlink");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fhreadlink");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fhreadlink");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhreadlink");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fhp, buf, bufsize);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdGetfhat(int32_t fd, char* path, void* fhp, int32_t flag) {
+    typedef int32_t (*km_fn_t)(int32_t, char*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getfhat");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getfhat");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getfhat");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getfhat");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getfhat");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, path, fhp, flag);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdError(void) {
+    typedef void* (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__error");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__error");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__error");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioCancel(int32_t fd, void* aiocbp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_cancel");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_cancel");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_cancel");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_cancel");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_cancel");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioError(void* aiocbp) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_error");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_error");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_error");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_error");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_error");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioFsync(int32_t op, void* aiocbp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_fsync");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_fsync");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_fsync");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_fsync");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_fsync");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(op, aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioRead(void* aiocbp) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_read");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_read");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_read");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_read");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_read");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioReadv(void* aiocbp) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_readv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_readv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_readv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_readv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_readv");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdAioReturn(void* aiocbp) {
+    typedef int64_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_return");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_return");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_return");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_return");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_return");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioSuspend(void* aiocbList, int32_t nitems, void* timeout) {
+    typedef int32_t (*km_fn_t)(void*, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_suspend");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_suspend");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_suspend");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_suspend");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_suspend");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbList, nitems, timeout);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioWrite(void* aiocbp) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_write");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_write");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_write");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_write");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_write");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdAioWritev(void* aiocbp) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_writev");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_writev");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_writev");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_writev");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_writev");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aiocbp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdCopyFileRange(int32_t infd, void* inoffp, int32_t outfd, void* outoffp, uint64_t len, uint32_t flags) {
+    typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "copy_file_range");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_copy_file_range");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "copy_file_range");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_copy_file_range");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "copy_file_range");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(infd, inoffp, outfd, outoffp, len, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+char* libcUnixBsdFreebsdlikeFreebsdDevnameR(uint32_t dev, uint16_t mode, char* buf, int32_t len) {
+    typedef char* (*km_fn_t)(uint32_t, uint16_t, char*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "devname_r");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_devname_r");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "devname_r");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_devname_r");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devname_r");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(dev, mode, buf, len);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFd(int32_t fd, int32_t attrnamespace, const char* attrname) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_delete_fd");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_delete_fd");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_delete_fd");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_delete_fd");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_delete_fd");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, attrnamespace, attrname);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFile(const char* path, int32_t attrnamespace, const char* attrname) {
+    typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_delete_file");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_delete_file");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_delete_file");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_delete_file");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_delete_file");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, attrname);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdExtattrDeleteLink(const char* path, int32_t attrnamespace, const char* attrname) {
+    typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_delete_link");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_delete_link");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_delete_link");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_delete_link");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_delete_link");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, attrname);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrGetFd(int32_t fd, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(int32_t, int32_t, const char*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_get_fd");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_get_fd");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_get_fd");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_get_fd");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_get_fd");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, attrnamespace, attrname, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrGetFile(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_get_file");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_get_file");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_get_file");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_get_file");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_get_file");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, attrname, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrGetLink(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_get_link");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_get_link");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_get_link");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_get_link");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_get_link");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, attrname, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrListFd(int32_t fd, int32_t attrnamespace, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_list_fd");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_list_fd");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_list_fd");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_list_fd");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_list_fd");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, attrnamespace, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrListFile(const char* path, int32_t attrnamespace, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_list_file");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_list_file");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_list_file");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_list_file");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_list_file");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrListLink(const char* path, int32_t attrnamespace, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_list_link");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_list_link");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_list_link");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_list_link");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_list_link");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrSetFd(int32_t fd, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(int32_t, int32_t, const char*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_set_fd");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_set_fd");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_set_fd");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_set_fd");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_set_fd");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, attrnamespace, attrname, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrSetFile(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_set_file");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_set_file");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_set_file");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_set_file");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_set_file");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, attrname, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdExtattrSetLink(const char* path, int32_t attrnamespace, const char* attrname, void* data, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_set_link");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_set_link");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_set_link");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_set_link");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_set_link");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, attrnamespace, attrname, data, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFspacectl(int32_t fd, int32_t cmd, void* rqsr, int32_t flags, void* rmsr) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fspacectl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fspacectl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fspacectl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fspacectl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fspacectl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, cmd, rqsr, flags, rmsr);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdJail(void* jail) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "jail");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_jail");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "jail");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_jail");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(jail);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdJailAttach(int32_t jid) {
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "jail_attach");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_jail_attach");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "jail_attach");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_jail_attach");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_attach");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(jid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdJailRemove(int32_t jid) {
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "jail_remove");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_jail_remove");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "jail_remove");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_jail_remove");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_remove");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(jid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdJailGet(void* iov, uint32_t niov, int32_t flags) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "jail_get");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_jail_get");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "jail_get");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_jail_get");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_get");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(iov, niov, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdJailSet(void* iov, uint32_t niov, int32_t flags) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "jail_set");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_jail_set");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "jail_set");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_jail_set");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "jail_set");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(iov, niov, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdLioListio(int32_t mode, void* aiocbList, int32_t nitems, void* sevp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "lio_listio");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_lio_listio");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "lio_listio");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_lio_listio");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lio_listio");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mode, aiocbList, nitems, sevp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdGetutxuser(const char* user) {
+    typedef void* (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getutxuser");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getutxuser");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getutxuser");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getutxuser");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getutxuser");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(user);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSetutxdb(int32_t type, const char* file) {
+    typedef int32_t (*km_fn_t)(int32_t, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setutxdb");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setutxdb");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setutxdb");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setutxdb");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setutxdb");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(type, file);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdAioWaitcomplete(void* iocbp, void* timeout) {
+    typedef int64_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "aio_waitcomplete");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_aio_waitcomplete");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "aio_waitcomplete");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_aio_waitcomplete");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "aio_waitcomplete");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(iocbp, timeout);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMqGetfdNp(void* mqd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "mq_getfd_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_mq_getfd_np");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "mq_getfd_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_mq_getfd_np");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mq_getfd_np");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mqd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdWaitid(uint32_t idtype, int64_t id, void* infop, int32_t options) {
+    typedef int32_t (*km_fn_t)(uint32_t, int64_t, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "waitid");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_waitid");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "waitid");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_waitid");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "waitid");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(idtype, id, infop, options);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPtsnameR(int32_t fd, char* buf, uint64_t buflen) {
+    typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "ptsname_r");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_ptsname_r");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "ptsname_r");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_ptsname_r");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ptsname_r");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, buf, buflen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdFtok(const char* pathname, int32_t projId) {
+    typedef int64_t (*km_fn_t)(const char*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "ftok");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_ftok");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "ftok");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_ftok");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ftok");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pathname, projId);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdShmget(int64_t key, uint64_t size, int32_t shmflg) {
+    typedef int32_t (*km_fn_t)(int64_t, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "shmget");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_shmget");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "shmget");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_shmget");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmget");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(key, size, shmflg);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdShmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
+    typedef void* (*km_fn_t)(int32_t, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "shmat");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_shmat");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "shmat");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_shmat");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmat");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(shmid, shmaddr, shmflg);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdShmdt(void* shmaddr) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "shmdt");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_shmdt");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "shmdt");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_shmdt");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmdt");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(shmaddr);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdShmctl(int32_t shmid, int32_t cmd, void* buf) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "shmctl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_shmctl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "shmctl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_shmctl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shmctl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(shmid, cmd, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSemget(int64_t key, int32_t nsems, int32_t semflg) {
+    typedef int32_t (*km_fn_t)(int64_t, int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "semget");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_semget");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "semget");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_semget");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "semget");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(key, nsems, semflg);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSemctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "semctl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_semctl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "semctl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_semctl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "semctl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(semid, semnum, cmd);
+            case 1: return km_fn_ptr(semid, semnum, cmd, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(semid, semnum, cmd, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(semid, semnum, cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(semid, semnum, cmd, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSemop(int32_t semid, void* sops, uint64_t nsops) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "semop");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_semop");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "semop");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_semop");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "semop");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(semid, sops, nsops);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMsgctl(int32_t msqid, int32_t cmd, void* buf) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "msgctl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_msgctl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "msgctl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_msgctl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgctl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(msqid, cmd, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMsgget(int64_t key, int32_t msgflg) {
+    typedef int32_t (*km_fn_t)(int64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "msgget");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_msgget");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "msgget");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_msgget");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgget");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(key, msgflg);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMsgsnd(int32_t msqid, void* msgp, uint64_t msgsz, int32_t msgflg) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "msgsnd");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_msgsnd");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "msgsnd");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_msgsnd");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "msgsnd");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(msqid, msgp, msgsz, msgflg);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdCfmakesane(void* termios) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cfmakesane");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cfmakesane");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cfmakesane");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cfmakesane");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cfmakesane");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(termios);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPdfork(void* fdp, int32_t flags) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pdfork");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pdfork");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pdfork");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pdfork");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pdfork");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fdp, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPdgetpid(int32_t fd, void* pidp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pdgetpid");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pdgetpid");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pdgetpid");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pdgetpid");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pdgetpid");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, pidp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPdkill(int32_t fd, int32_t signum) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pdkill");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pdkill");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pdkill");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pdkill");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pdkill");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, signum);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdRtprioThread(int32_t function, int32_t lwpid, void* rtp) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "rtprio_thread");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_rtprio_thread");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "rtprio_thread");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_rtprio_thread");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rtprio_thread");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(function, lwpid, rtp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdUuidgen(void* store, int32_t count) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "uuidgen");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_uuidgen");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "uuidgen");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_uuidgen");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "uuidgen");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(store, count);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdThrKill(int64_t id, int32_t sig) {
+    typedef int32_t (*km_fn_t)(int64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "thr_kill");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_thr_kill");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "thr_kill");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_thr_kill");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_kill");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(id, sig);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdThrKill2(int32_t pid, int64_t id, int32_t sig) {
+    typedef int32_t (*km_fn_t)(int32_t, int64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "thr_kill2");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_thr_kill2");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "thr_kill2");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_thr_kill2");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_kill2");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pid, id, sig);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdThrSelf(void* tid) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "thr_self");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_thr_self");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "thr_self");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_thr_self");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "thr_self");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(tid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp(void) {
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_getthreadid_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_getthreadid_np");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_getthreadid_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_getthreadid_np");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getthreadid_np");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp(void* td, uint64_t cpusetsize, void* cpusetp) {
+    typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_getaffinity_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_getaffinity_np");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_getaffinity_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_getaffinity_np");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_getaffinity_np");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(td, cpusetsize, cpusetp);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadSetaffinityNp(void* td, uint64_t cpusetsize, void* cpusetp) {
+    typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_setaffinity_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_setaffinity_np");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_setaffinity_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_setaffinity_np");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_setaffinity_np");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(td, cpusetsize, cpusetp);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSchedGetaffinity(int32_t pid, uint64_t cpusetsz, void* cpuset) {
+    typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sched_getaffinity");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sched_getaffinity");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sched_getaffinity");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sched_getaffinity");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_getaffinity");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pid, cpusetsz, cpuset);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSchedSetaffinity(int32_t pid, uint64_t cpusetsz, void* cpuset) {
+    typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sched_setaffinity");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sched_setaffinity");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sched_setaffinity");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sched_setaffinity");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_setaffinity");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pid, cpusetsz, cpuset);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSchedGetcpu(void) {
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sched_getcpu");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sched_getcpu");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sched_getcpu");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sched_getcpu");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sched_getcpu");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent(void* mutex) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_mutex_consistent");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_mutex_consistent");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_mutex_consistent");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_mutex_consistent");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutex_consistent");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mutex);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrGetrobust(void* attr, void* robust) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_mutexattr_getrobust");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_mutexattr_getrobust");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_mutexattr_getrobust");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_mutexattr_getrobust");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_getrobust");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(attr, robust);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrSetrobust(void* attr, int32_t robust) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_mutexattr_setrobust");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_mutexattr_setrobust");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_mutexattr_setrobust");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_mutexattr_setrobust");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_mutexattr_setrobust");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(attr, robust);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadSpinInit(void* lock, int32_t pshared) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_spin_init");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_spin_init");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_spin_init");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_spin_init");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_init");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(lock, pshared);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadSpinDestroy(void* lock) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_spin_destroy");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_spin_destroy");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_spin_destroy");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_spin_destroy");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_destroy");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(lock);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadSpinLock(void* lock) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_spin_lock");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_spin_lock");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_spin_lock");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_spin_lock");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_lock");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(lock);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadSpinTrylock(void* lock) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_spin_trylock");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_spin_trylock");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_spin_trylock");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_spin_trylock");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_trylock");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(lock);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadSpinUnlock(void* lock) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_spin_unlock");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_spin_unlock");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_spin_unlock");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_spin_unlock");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_spin_unlock");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(lock);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPthreadTimedjoinNp(void* thread, void* retval, void* abstime) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pthread_timedjoin_np");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pthread_timedjoin_np");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pthread_timedjoin_np");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pthread_timedjoin_np");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pthread_timedjoin_np");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(thread, retval, abstime);
+    }
+    errno = ENOSYS;
+    return ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdStatfs(const char* path, void* buf) {
+    typedef int32_t (*km_fn_t)(const char*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "statfs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_statfs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "statfs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_statfs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "statfs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFstatfs(int32_t fd, void* buf) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fstatfs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fstatfs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fstatfs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fstatfs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fstatfs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdDup3(int32_t src, int32_t dst, int32_t flags) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "dup3");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_dup3");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "dup3");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_dup3");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dup3");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(src, dst, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdXuname(int32_t nmln, void* buf) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__xuname");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__xuname");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__xuname");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(nmln, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdSendmmsg(int32_t sockfd, void* msgvec, uint64_t vlen, int32_t flags) {
+    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sendmmsg");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sendmmsg");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sendmmsg");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sendmmsg");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sendmmsg");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(sockfd, msgvec, vlen, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdRecvmmsg(int32_t sockfd, void* msgvec, uint64_t vlen, int32_t flags, void* timeout) {
+    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "recvmmsg");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_recvmmsg");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "recvmmsg");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_recvmmsg");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "recvmmsg");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(sockfd, msgvec, vlen, flags, timeout);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+    typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memmem");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memmem");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memmem");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memmem");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memmem");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(haystack, haystacklen, needle, needlelen);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFhopen(void* fhp, int32_t flags) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fhopen");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fhopen");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fhopen");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fhopen");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhopen");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fhp, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFhstat(void* fhp, void* buf) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fhstat");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fhstat");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fhstat");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fhstat");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhstat");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fhp, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFhstatfs(void* fhp, void* buf) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fhstatfs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fhstatfs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fhstatfs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fhstatfs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fhstatfs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fhp, buf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdGetfh(const char* path, void* fhp) {
+    typedef int32_t (*km_fn_t)(const char*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getfh");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getfh");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getfh");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getfh");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getfh");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, fhp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdLgetfh(const char* path, void* fhp) {
+    typedef int32_t (*km_fn_t)(const char*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "lgetfh");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_lgetfh");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "lgetfh");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_lgetfh");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "lgetfh");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, fhp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdGetfsstat(void* buf, int64_t bufsize, int32_t mode) {
+    typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getfsstat");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getfsstat");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getfsstat");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getfsstat");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getfsstat");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(buf, bufsize, mode);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdGetmntinfo(void* mntbufp, int32_t mode) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getmntinfo");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getmntinfo");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getmntinfo");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getmntinfo");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getmntinfo");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mntbufp, mode);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMount(const char* type, const char* dir, int32_t flags, void* data) {
+    typedef int32_t (*km_fn_t)(const char*, const char*, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "mount");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_mount");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "mount");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_mount");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mount");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(type, dir, flags, data);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdNmount(void* iov, uint32_t niov, int32_t flags) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "nmount");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_nmount");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "nmount");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_nmount");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "nmount");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(iov, niov, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdSetproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef void (*km_fn_t)(const char*, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setproctitle");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setproctitle");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setproctitle");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setproctitle");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setproctitle");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: km_fn_ptr(fmt); break;
+            case 1: km_fn_ptr(fmt, (intptr_t)km_va0); break;
+            case 2: km_fn_ptr(fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_fn_ptr(fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_fn_ptr(fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+        }
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdRfork(int32_t flags) {
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "rfork");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_rfork");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "rfork");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_rfork");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rfork");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity(int32_t level, int32_t which, int64_t id, uint64_t setsize, void* mask) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cpuset_getaffinity");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cpuset_getaffinity");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cpuset_getaffinity");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cpuset_getaffinity");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_getaffinity");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(level, which, id, setsize, mask);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCpusetSetaffinity(int32_t level, int32_t which, int64_t id, uint64_t setsize, void* mask) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cpuset_setaffinity");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cpuset_setaffinity");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cpuset_setaffinity");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cpuset_setaffinity");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_setaffinity");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(level, which, id, setsize, mask);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCpuset(void* setid) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cpuset");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cpuset");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cpuset");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cpuset");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(setid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCpusetGetid(int32_t level, int32_t which, int64_t id, void* setid) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cpuset_getid");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cpuset_getid");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cpuset_getid");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cpuset_getid");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_getid");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(level, which, id, setid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCpusetSetid(int32_t which, int64_t id, int32_t setid) {
+    typedef int32_t (*km_fn_t)(int32_t, int64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cpuset_setid");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cpuset_setid");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cpuset_setid");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cpuset_setid");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cpuset_setid");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(which, id, setid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapEnter(void) {
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_enter");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_enter");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_enter");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_enter");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_enter");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapGetmode(void* modep) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_getmode");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_getmode");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_getmode");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_getmode");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_getmode");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(modep);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapFcntlsGet(int32_t fd, void* fcntlrightsp) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_fcntls_get");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_fcntls_get");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_fcntls_get");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_fcntls_get");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_fcntls_get");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, fcntlrightsp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(int32_t fd, uint32_t fcntlrights) {
+    typedef int32_t (*km_fn_t)(int32_t, uint32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_fcntls_limit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_fcntls_limit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_fcntls_limit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_fcntls_limit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_fcntls_limit");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, fcntlrights);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet(int32_t fd, void* cmds, uint64_t maxcmds) {
+    typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_ioctls_get");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_ioctls_get");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_ioctls_get");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_ioctls_get");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_ioctls_get");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, cmds, maxcmds);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapIoctlsLimit(int32_t fd, void* cmds, uint64_t ncmds) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_ioctls_limit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_ioctls_limit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_ioctls_limit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_ioctls_limit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_ioctls_limit");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, cmds, ncmds);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdCapRightsInit(int32_t version, void* rights, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef void* (*km_fn_t)(int32_t, void*, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cap_rights_init");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cap_rights_init");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cap_rights_init");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(version, rights);
+            case 1: return km_fn_ptr(version, rights, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(version, rights, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(version, rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(version, rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapRightsGet(int32_t version, int32_t fd, void* rightsp) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cap_rights_get");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cap_rights_get");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cap_rights_get");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(version, fd, rightsp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdCapRightsSet(void* rights, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef void* (*km_fn_t)(void*, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cap_rights_set");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cap_rights_set");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cap_rights_set");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(rights);
+            case 1: return km_fn_ptr(rights, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdCapRightsClear(void* rights, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef void* (*km_fn_t)(void*, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cap_rights_clear");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cap_rights_clear");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cap_rights_clear");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(rights);
+            case 1: return km_fn_ptr(rights, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+bool libcUnixBsdFreebsdlikeFreebsdCapRightsIsSet(void* rights, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef bool (*km_fn_t)(void*, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "__cap_rights_is_set");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "__cap_rights_is_set");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "__cap_rights_is_set");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(rights);
+            case 1: return km_fn_ptr(rights, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(rights, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return false;
+}
+
+bool libcUnixBsdFreebsdlikeFreebsdCapRightsIsValid(void* rights) {
+    typedef bool (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_rights_is_valid");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_rights_is_valid");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_rights_is_valid");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_rights_is_valid");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_is_valid");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(rights);
+    }
+    errno = ENOSYS;
+    return false;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCapRightsLimit(int32_t fd, void* rights) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_rights_limit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_rights_limit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_rights_limit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_rights_limit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_limit");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, rights);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdCapRightsMerge(void* dst, void* src) {
+    typedef void* (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_rights_merge");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_rights_merge");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_rights_merge");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_rights_merge");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_merge");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(dst, src);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdCapRightsRemove(void* dst, void* src) {
+    typedef void* (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_rights_remove");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_rights_remove");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_rights_remove");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_rights_remove");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_remove");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(dst, src);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+bool libcUnixBsdFreebsdlikeFreebsdCapRightsContains(void* big, void* little) {
+    typedef bool (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_rights_contains");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_rights_contains");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_rights_contains");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_rights_contains");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_rights_contains");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(big, little);
+    }
+    errno = ENOSYS;
+    return false;
+}
+
+bool libcUnixBsdFreebsdlikeFreebsdCapSandboxed(void) {
+    typedef bool (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "cap_sandboxed");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_cap_sandboxed");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "cap_sandboxed");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_cap_sandboxed");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "cap_sandboxed");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return false;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdReallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
+    typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "reallocarray");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_reallocarray");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "reallocarray");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_reallocarray");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "reallocarray");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(ptr, nmemb, size);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFfs(int32_t value) {
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "ffs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_ffs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "ffs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_ffs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ffs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFfsl(int64_t value) {
+    typedef int32_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "ffsl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_ffsl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "ffsl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_ffsl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ffsl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFfsll(int64_t value) {
+    typedef int32_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "ffsll");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_ffsll");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "ffsll");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_ffsll");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "ffsll");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFls(int32_t value) {
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fls");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fls");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fls");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fls");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fls");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFlsl(int64_t value) {
+    typedef int32_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "flsl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_flsl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "flsl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_flsl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flsl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFlsll(int64_t value) {
+    typedef int32_t (*km_fn_t)(int64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "flsll");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_flsll");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "flsll");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_flsll");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flsll");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint(void* writeCb, void* cbopaque, const char* opt) {
+    typedef void (*km_fn_t)(void*, void*, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "malloc_stats_print");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_malloc_stats_print");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "malloc_stats_print");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_malloc_stats_print");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "malloc_stats_print");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(writeCb, cbopaque, opt);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMallctl(const char* name, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+    typedef int32_t (*km_fn_t)(const char*, void*, void*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "mallctl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_mallctl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "mallctl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_mallctl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallctl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(name, oldp, oldlenp, newp, newlen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMallctlnametomib(const char* name, void* mibp, void* miplen) {
+    typedef int32_t (*km_fn_t)(const char*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "mallctlnametomib");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_mallctlnametomib");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "mallctlnametomib");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_mallctlnametomib");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallctlnametomib");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(name, mibp, miplen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMallctlbymib(void* mib, uint64_t mible, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+    typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "mallctlbymib");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_mallctlbymib");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "mallctlbymib");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_mallctlbymib");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallctlbymib");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mib, mible, oldp, oldlenp, newp, newlen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdMallocx(uint64_t size, int32_t flags) {
+    typedef void* (*km_fn_t)(uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "mallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_mallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "mallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_mallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "mallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(size, flags);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdRallocx(void* ptr, uint64_t size, int32_t flags) {
+    typedef void* (*km_fn_t)(void*, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "rallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_rallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "rallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_rallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "rallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(ptr, size, flags);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+uint64_t libcUnixBsdFreebsdlikeFreebsdXallocx(void* ptr, uint64_t size, uint64_t extra, int32_t flags) {
+    typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "xallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_xallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "xallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_xallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "xallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(ptr, size, extra, flags);
+    }
+    errno = ENOSYS;
+    return 0;
+}
+
+uint64_t libcUnixBsdFreebsdlikeFreebsdSallocx(void* ptr, int32_t flags) {
+    typedef uint64_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(ptr, flags);
+    }
+    errno = ENOSYS;
+    return 0;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdDallocx(void* ptr, int32_t flags) {
+    typedef void (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "dallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_dallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "dallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_dallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(ptr, flags);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdSdallocx(void* ptr, uint64_t size, int32_t flags) {
+    typedef void (*km_fn_t)(void*, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sdallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sdallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sdallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sdallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sdallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(ptr, size, flags);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+uint64_t libcUnixBsdFreebsdlikeFreebsdNallocx(uint64_t size, int32_t flags) {
+    typedef uint64_t (*km_fn_t)(uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "nallocx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_nallocx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "nallocx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_nallocx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "nallocx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(size, flags);
+    }
+    errno = ENOSYS;
+    return 0;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcctl(uint32_t idtype, int64_t id, int32_t cmd, void* data) {
+    typedef int32_t (*km_fn_t)(uint32_t, int64_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procctl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procctl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procctl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procctl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procctl");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(idtype, id, cmd, data);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdGetpagesize(void) {
+    typedef int32_t (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getpagesize");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getpagesize");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getpagesize");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getpagesize");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpagesize");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdGetpagesizes(void* pagesize, int32_t nelem) {
+    typedef int32_t (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getpagesizes");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getpagesizes");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getpagesizes");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getpagesizes");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getpagesizes");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pagesize, nelem);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdClockGetcpuclockid2(int64_t arg1, int32_t arg2, void* arg3) {
+    typedef int32_t (*km_fn_t)(int64_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "clock_getcpuclockid2");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_clock_getcpuclockid2");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "clock_getcpuclockid2");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_clock_getcpuclockid2");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "clock_getcpuclockid2");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(arg1, arg2, arg3);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+char* libcUnixBsdFreebsdlikeFreebsdStrchrnul(const char* s, int32_t c) {
+    typedef char* (*km_fn_t)(const char*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "strchrnul");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_strchrnul");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "strchrnul");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_strchrnul");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "strchrnul");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, c);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdShmCreateLargepage(const char* path, int32_t flags, int32_t psind, int32_t allocPolicy, uint16_t mode) {
+    typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t, int32_t, uint16_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "shm_create_largepage");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_shm_create_largepage");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "shm_create_largepage");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_shm_create_largepage");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shm_create_largepage");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, flags, psind, allocPolicy, mode);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdShmRename(const char* pathFrom, const char* pathTo, int32_t flags) {
+    typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "shm_rename");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_shm_rename");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "shm_rename");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_shm_rename");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "shm_rename");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pathFrom, pathTo, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMemfdCreate(const char* name, uint32_t flags) {
+    typedef int32_t (*km_fn_t)(const char*, uint32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memfd_create");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memfd_create");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memfd_create");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memfd_create");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memfd_create");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(name, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSetaudit(void* auditinfo) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setaudit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setaudit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setaudit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setaudit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setaudit");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(auditinfo);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdEventfd(uint32_t initval, int32_t flags) {
+    typedef int32_t (*km_fn_t)(uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "eventfd");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_eventfd");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "eventfd");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_eventfd");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "eventfd");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(initval, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdEventfdRead(int32_t fd, void* value) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "eventfd_read");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_eventfd_read");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "eventfd_read");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_eventfd_read");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "eventfd_read");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdEventfdWrite(int32_t fd, uint64_t value) {
+    typedef int32_t (*km_fn_t)(int32_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "eventfd_write");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_eventfd_write");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "eventfd_write");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_eventfd_write");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "eventfd_write");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFdatasync(int32_t fd) {
+    typedef int32_t (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "fdatasync");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_fdatasync");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "fdatasync");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_fdatasync");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "fdatasync");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdElfAuxInfo(int32_t aux, void* buf, int32_t buflen) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "elf_aux_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_elf_aux_info");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "elf_aux_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_elf_aux_info");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "elf_aux_info");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(aux, buf, buflen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdSetproctitleFast(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef void (*km_fn_t)(const char*, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "setproctitle_fast");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_setproctitle_fast");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "setproctitle_fast");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_setproctitle_fast");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "setproctitle_fast");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: km_fn_ptr(fmt); break;
+            case 1: km_fn_ptr(fmt, (intptr_t)km_va0); break;
+            case 2: km_fn_ptr(fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_fn_ptr(fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_fn_ptr(fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+        }
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimingsafeBcmp(void* a, void* b, uint64_t len) {
+    typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timingsafe_bcmp");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timingsafe_bcmp");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timingsafe_bcmp");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timingsafe_bcmp");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timingsafe_bcmp");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(a, b, len);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimingsafeMemcmp(void* a, void* b, uint64_t len) {
+    typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timingsafe_memcmp");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timingsafe_memcmp");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timingsafe_memcmp");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timingsafe_memcmp");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timingsafe_memcmp");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(a, b, len);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdUmtxOp(void* obj, int32_t op, uint64_t val, void* uaddr, void* uaddr2) {
+    typedef int32_t (*km_fn_t)(void*, int32_t, uint64_t, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_umtx_op");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_umtx_op");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "_umtx_op");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(obj, op, val, uaddr, uaddr2);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpPeeloff(int32_t s, uint32_t id) {
+    typedef int32_t (*km_fn_t)(int32_t, uint32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_peeloff");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_peeloff");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_peeloff");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_peeloff");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_peeloff");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, id);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpBindx(int32_t s, void* addrs, int32_t num, int32_t tpe) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_bindx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_bindx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_bindx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_bindx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_bindx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, addrs, num, tpe);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpConnectx(int32_t s, void* addrs, int32_t addrcnt, void* id) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_connectx");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_connectx");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_connectx");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_connectx");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_connectx");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, addrs, addrcnt, id);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(uint8_t family) {
+    typedef int32_t (*km_fn_t)(uint8_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_getaddrlen");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_getaddrlen");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_getaddrlen");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_getaddrlen");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_getaddrlen");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(family);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs(int32_t s, uint32_t asocid, void* addrs) {
+    typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_getpaddrs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_getpaddrs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_getpaddrs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_getpaddrs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_getpaddrs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, asocid, addrs);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdSctpFreepaddrs(void* addrs) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_freepaddrs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_freepaddrs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_freepaddrs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_freepaddrs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_freepaddrs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(addrs);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpGetladdrs(int32_t s, uint32_t asocid, void* addrs) {
+    typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_getladdrs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_getladdrs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_getladdrs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_getladdrs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_getladdrs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, asocid, addrs);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdSctpFreeladdrs(void* addrs) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_freeladdrs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_freeladdrs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_freeladdrs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_freeladdrs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_freeladdrs");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(addrs);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdSctpOptInfo(int32_t s, uint32_t id, int32_t opt, void* arg, void* size) {
+    typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_opt_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_opt_info");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_opt_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_opt_info");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_opt_info");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(s, id, opt, arg, size);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdSctpSendv(int32_t sd, void* iov, int32_t iovcnt, void* addrs, int32_t addrcnt, void* info, uint32_t infolen, uint32_t infotype, int32_t flags) {
+    typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, void*, uint32_t, uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_sendv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_sendv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_sendv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_sendv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_sendv");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(sd, iov, iovcnt, addrs, addrcnt, info, infolen, infotype, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdSctpRecvv(int32_t sd, void* iov, int32_t iovcnt, void* from, void* fromlen, void* info, void* infolen, void* infotype, void* flags) {
+    typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*, void*, void*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "sctp_recvv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_sctp_recvv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "sctp_recvv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_sctp_recvv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "sctp_recvv");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(sd, iov, iovcnt, from, fromlen, info, infolen, infotype, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerfdCreate(int32_t clockid, int32_t flags) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timerfd_create");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timerfd_create");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timerfd_create");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timerfd_create");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timerfd_create");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(clockid, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerfdGettime(int32_t fd, void* currValue) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timerfd_gettime");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timerfd_gettime");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timerfd_gettime");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timerfd_gettime");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timerfd_gettime");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, currValue);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerfdSettime(int32_t fd, int32_t flags, void* newValue, void* oldValue) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timerfd_settime");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timerfd_settime");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timerfd_settime");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timerfd_settime");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timerfd_settime");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(fd, flags, newValue, oldValue);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdClosefrom(int32_t lowfd) {
+    typedef void (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "closefrom");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_closefrom");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "closefrom");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_closefrom");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "closefrom");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(lowfd);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdCloseRange(uint32_t lowfd, uint32_t highfd, int32_t flags) {
+    typedef int32_t (*km_fn_t)(uint32_t, uint32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "close_range");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_close_range");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "close_range");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_close_range");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "close_range");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(lowfd, highfd, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdExecvpe(const char* file, void* argv, void* envp) {
+    typedef int32_t (*km_fn_t)(const char*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "execvpe");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_execvpe");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "execvpe");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_execvpe");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "execvpe");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(file, argv, envp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKcmp(int32_t pid1, int32_t pid2, int32_t type, uint64_t idx1, uint64_t idx2) {
+    typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, uint64_t, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kcmp");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kcmp");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kcmp");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kcmp");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kcmp");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pid1, pid2, type, idx1, idx2);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdDlvsym(void* handle, const char* symbol, const char* version) {
+    typedef void* (*km_fn_t)(void*, const char*, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "dlvsym");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_dlvsym");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "dlvsym");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_dlvsym");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "dlvsym");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(handle, symbol, version);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+const char* libcUnixBsdFreebsdlikeFreebsdMemstatStrerror(int32_t error) {
+    typedef const char* (*km_fn_t)(int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_strerror");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_strerror");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_strerror");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_strerror");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_strerror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_strerror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_strerror");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(error);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdMemstatMtlAlloc(void) {
+    typedef void* (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_mtl_alloc");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_mtl_alloc");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_mtl_alloc");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_mtl_alloc");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_alloc");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_alloc");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_alloc");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdMemstatMtlFirst(void* list) {
+    typedef void* (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_mtl_first");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_mtl_first");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_mtl_first");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_mtl_first");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_first");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_first");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_first");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(list);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdMemstatMtlNext(void* mtp) {
+    typedef void* (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_mtl_next");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_mtl_next");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_mtl_next");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_mtl_next");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_next");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_next");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_next");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mtp);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdMemstatMtlFind(void* list, int32_t allocator, const char* name) {
+    typedef void* (*km_fn_t)(void*, int32_t, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_mtl_find");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_mtl_find");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_mtl_find");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_mtl_find");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_find");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_find");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_find");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(list, allocator, name);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdMemstatMtlFree(void* list) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_mtl_free");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_mtl_free");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_mtl_free");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_mtl_free");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_free");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_free");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_free");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(list);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdMemstatMtlGeterror(void* list) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_mtl_geterror");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_mtl_geterror");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_mtl_geterror");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_mtl_geterror");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_mtl_geterror");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_geterror");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_mtl_geterror");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(list);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+const char* libcUnixBsdFreebsdlikeFreebsdMemstatGetName(void* mtp) {
+    typedef const char* (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "memstat_get_name");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_memstat_get_name");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "memstat_get_name");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_memstat_get_name");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "memstat_get_name");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("/usr/lib/libmemstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_get_name");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_memstat = NULL;
+            static bool km_h_memstat_init = false;
+            if (!km_h_memstat_init) {
+                km_h_memstat_init = true;
+                km_h_memstat = dlopen("libmemstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_memstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_memstat, "memstat_get_name");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(mtp);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmDpcpuSetcpu(void* kd, uint32_t cpu) {
+    typedef int32_t (*km_fn_t)(void*, uint32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_dpcpu_setcpu");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_dpcpu_setcpu");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_dpcpu_setcpu");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_dpcpu_setcpu");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_dpcpu_setcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_dpcpu_setcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_dpcpu_setcpu");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, cpu);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdKvmGetargv(void* kd, void* p, int32_t nchr) {
+    typedef void* (*km_fn_t)(void*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getargv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getargv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getargv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getargv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getargv");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, p, nchr);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmGetcptime(void* kd, void* cpTime) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getcptime");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getcptime");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getcptime");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getcptime");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getcptime");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getcptime");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getcptime");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, cpTime);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdKvmGetenvv(void* kd, void* p, int32_t nchr) {
+    typedef void* (*km_fn_t)(void*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getenvv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getenvv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getenvv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getenvv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getenvv");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, p, nchr);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+char* libcUnixBsdFreebsdlikeFreebsdKvmGeterr(void* kd) {
+    typedef char* (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_geterr");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_geterr");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_geterr");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_geterr");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_geterr");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_geterr");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_geterr");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmGetmaxcpu(void* kd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getmaxcpu");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getmaxcpu");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getmaxcpu");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getmaxcpu");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getmaxcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getmaxcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getmaxcpu");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmGetncpus(void* kd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getncpus");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getncpus");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getncpus");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getncpus");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getncpus");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getncpus");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getncpus");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdKvmGetpcpu(void* kd, int32_t cpu) {
+    typedef void* (*km_fn_t)(void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getpcpu");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getpcpu");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getpcpu");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getpcpu");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getpcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getpcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getpcpu");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, cpu);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+uint64_t libcUnixBsdFreebsdlikeFreebsdKvmCounterU64Fetch(void* kd, uint64_t base) {
+    typedef uint64_t (*km_fn_t)(void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_counter_u64_fetch");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_counter_u64_fetch");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_counter_u64_fetch");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_counter_u64_fetch");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_counter_u64_fetch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_counter_u64_fetch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_counter_u64_fetch");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, base);
+    }
+    errno = ENOSYS;
+    return 0;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmGetswapinfo(void* kd, void* info, int32_t maxswap, int32_t flags) {
+    typedef int32_t (*km_fn_t)(void*, void*, int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_getswapinfo");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_getswapinfo");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_getswapinfo");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_getswapinfo");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_getswapinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getswapinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_getswapinfo");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, info, maxswap, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmNative(void* kd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_native");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_native");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_native");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_native");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_native");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_native");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_native");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmNlist(void* kd, void* nl) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_nlist");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_nlist");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_nlist");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_nlist");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_nlist");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, nl);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKvmNlist2(void* kd, void* nl) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_nlist2");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_nlist2");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_nlist2");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_nlist2");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_nlist2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_nlist2");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, nl);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdKvmReadZpcpu(void* kd, uint64_t base, void* buf, uint64_t size, int32_t cpu) {
+    typedef int64_t (*km_fn_t)(void*, uint64_t, void*, uint64_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_read_zpcpu");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_read_zpcpu");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_read_zpcpu");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_read_zpcpu");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_read_zpcpu");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read_zpcpu");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read_zpcpu");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, base, buf, size, cpu);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdKvmRead2(void* kd, uint64_t addr, void* buf, uint64_t nbytes) {
+    typedef int64_t (*km_fn_t)(void*, uint64_t, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kvm_read2");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kvm_read2");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kvm_read2");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kvm_read2");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kvm_read2");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("/usr/lib/libkvm.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read2");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_kvm = NULL;
+            static bool km_h_kvm_init = false;
+            if (!km_h_kvm_init) {
+                km_h_kvm_init = true;
+                km_h_kvm = dlopen("libkvm.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_kvm != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_kvm, "kvm_read2");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd, addr, buf, nbytes);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdExtattrNamespaceToString(int32_t attrnamespace, void* string) {
+    typedef int32_t (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_namespace_to_string");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_namespace_to_string");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_namespace_to_string");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_namespace_to_string");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_namespace_to_string");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_namespace_to_string");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_namespace_to_string");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(attrnamespace, string);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdExtattrStringToNamespace(const char* string, void* attrnamespace) {
+    typedef int32_t (*km_fn_t)(const char*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "extattr_string_to_namespace");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_extattr_string_to_namespace");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "extattr_string_to_namespace");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_extattr_string_to_namespace");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "extattr_string_to_namespace");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_string_to_namespace");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "extattr_string_to_namespace");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(string, attrnamespace);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdRealhostname(char* host, uint64_t hsize, void* ip) {
+    typedef int32_t (*km_fn_t)(char*, uint64_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "realhostname");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_realhostname");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "realhostname");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_realhostname");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realhostname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(host, hsize, ip);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdRealhostnameSa(char* host, uint64_t hsize, void* addr, int32_t addrlen) {
+    typedef int32_t (*km_fn_t)(char*, uint64_t, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "realhostname_sa");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_realhostname_sa");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "realhostname_sa");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_realhostname_sa");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "realhostname_sa");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname_sa");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "realhostname_sa");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(host, hsize, addr, addrlen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKldIsloaded(const char* name) {
+    typedef int32_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kld_isloaded");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kld_isloaded");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kld_isloaded");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kld_isloaded");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kld_isloaded");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_isloaded");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_isloaded");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(name);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdKldLoad(const char* name) {
+    typedef int32_t (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kld_load");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kld_load");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kld_load");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kld_load");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kld_load");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_load");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kld_load");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(name);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdKinfoGetvmmap(int32_t pid, void* cntp) {
+    typedef void* (*km_fn_t)(int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "kinfo_getvmmap");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_kinfo_getvmmap");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "kinfo_getvmmap");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_kinfo_getvmmap");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "kinfo_getvmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kinfo_getvmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "kinfo_getvmmap");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(pid, cntp);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdHexdump(void* ptr, int32_t length, const char* hdr, int32_t flags) {
+    typedef void (*km_fn_t)(void*, int32_t, const char*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "hexdump");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_hexdump");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "hexdump");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_hexdump");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "hexdump");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "hexdump");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "hexdump");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(ptr, length, hdr, flags);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdHumanizeNumber(char* buf, uint64_t len, int64_t number, const char* suffix, int32_t scale, int32_t flags) {
+    typedef int32_t (*km_fn_t)(char*, uint64_t, int64_t, const char*, int32_t, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "humanize_number");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_humanize_number");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "humanize_number");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_humanize_number");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "humanize_number");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "humanize_number");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "humanize_number");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(buf, len, number, suffix, scale, flags);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFlopen(const char* path, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "flopen");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_flopen");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "flopen");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_flopen");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flopen");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopen");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopen");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(path, flags);
+            case 1: return km_fn_ptr(path, flags, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(path, flags, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(path, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(path, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdFlopenat(int32_t fd, const char* path, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+    typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "flopenat");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_flopenat");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "flopenat");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_flopenat");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "flopenat");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopenat");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "flopenat");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        switch (km_vac) {
+            case 0: return km_fn_ptr(fd, path, flags);
+            case 1: return km_fn_ptr(fd, path, flags, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(fd, path, flags, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(fd, path, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(fd, path, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+        }
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+const char* libcUnixBsdFreebsdlikeFreebsdGetlocalbase(void) {
+    typedef const char* (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "getlocalbase");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_getlocalbase");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "getlocalbase");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_getlocalbase");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "getlocalbase");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "getlocalbase");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "getlocalbase");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdPidfileOpen(const char* path, uint16_t mode, void* pidptr) {
+    typedef void* (*km_fn_t)(const char*, uint16_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pidfile_open");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pidfile_open");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pidfile_open");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pidfile_open");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_open");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_open");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_open");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path, mode, pidptr);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPidfileWrite(void* path) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pidfile_write");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pidfile_write");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pidfile_write");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pidfile_write");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_write");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_write");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_write");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPidfileClose(void* path) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pidfile_close");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pidfile_close");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pidfile_close");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pidfile_close");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_close");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPidfileRemove(void* path) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pidfile_remove");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pidfile_remove");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pidfile_remove");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pidfile_remove");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_remove");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_remove");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_remove");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdPidfileFileno(void* path) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "pidfile_fileno");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_pidfile_fileno");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "pidfile_fileno");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_pidfile_fileno");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "pidfile_fileno");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_fileno");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_util = NULL;
+            static bool km_h_util_init = false;
+            if (!km_h_util_init) {
+                km_h_util_init = true;
+                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_util != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_util, "pidfile_fileno");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(path);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatOpenSysctl(void) {
+    typedef void* (*km_fn_t)(void);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_open_sysctl");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_open_sysctl");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_open_sysctl");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_open_sysctl");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_sysctl");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_sysctl");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_sysctl");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr();
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatGetfiles(void* procstat, void* kp, int32_t mmapped) {
+    typedef void* (*km_fn_t)(void*, void*, int32_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getfiles");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getfiles");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getfiles");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getfiles");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getfiles");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getfiles");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getfiles");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, mmapped);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreefiles(void* procstat, void* head) {
+    typedef void (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freefiles");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freefiles");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freefiles");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freefiles");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freefiles");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freefiles");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freefiles");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat, head);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatGetprocs(void* procstat, int32_t what, int32_t arg, void* count) {
+    typedef void* (*km_fn_t)(void*, int32_t, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getprocs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getprocs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getprocs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getprocs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getprocs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getprocs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getprocs");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, what, arg, count);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreeprocs(void* procstat, void* p) {
+    typedef void (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freeprocs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freeprocs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freeprocs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freeprocs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeprocs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeprocs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeprocs");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat, p);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatGetvmmap(void* procstat, void* kp, void* count) {
+    typedef void* (*km_fn_t)(void*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getvmmap");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getvmmap");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getvmmap");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getvmmap");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getvmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getvmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getvmmap");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, count);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreevmmap(void* procstat, void* vmmap) {
+    typedef void (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freevmmap");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freevmmap");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freevmmap");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freevmmap");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freevmmap");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freevmmap");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freevmmap");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat, vmmap);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatClose(void* procstat) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_close");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_close");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_close");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_close");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_close");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_close");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_close");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreeargv(void* procstat) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freeargv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freeargv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freeargv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freeargv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeargv");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreeenvv(void* procstat) {
+    typedef void (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freeenvv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freeenvv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freeenvv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freeenvv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeenvv");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreegroups(void* procstat, void* groups) {
+    typedef void (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freegroups");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freegroups");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freegroups");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freegroups");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freegroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freegroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freegroups");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat, groups);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void libcUnixBsdFreebsdlikeFreebsdProcstatFreeptlwpinfo(void* procstat, void* pl) {
+    typedef void (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_freeptlwpinfo");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_freeptlwpinfo");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_freeptlwpinfo");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_freeptlwpinfo");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_freeptlwpinfo");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeptlwpinfo");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_freeptlwpinfo");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        km_fn_ptr(procstat, pl);
+        return;
+    }
+    errno = ENOSYS;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatGetargv(void* procstat, void* kp, uint64_t nchr) {
+    typedef void* (*km_fn_t)(void*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getargv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getargv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getargv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getargv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getargv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getargv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getargv");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, nchr);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatGetenvv(void* procstat, void* kp, uint64_t nchr) {
+    typedef void* (*km_fn_t)(void*, void*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getenvv");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getenvv");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getenvv");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getenvv");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getenvv");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getenvv");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getenvv");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, nchr);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatGetgroups(void* procstat, void* kp, void* count) {
+    typedef void* (*km_fn_t)(void*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getgroups");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getgroups");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getgroups");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getgroups");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getgroups");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getgroups");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getgroups");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, count);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetosrel(void* procstat, void* kp, void* osrelp) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getosrel");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getosrel");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getosrel");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getosrel");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getosrel");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getosrel");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getosrel");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, osrelp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetpathname(void* procstat, void* kp, char* pathname, uint64_t maxlen) {
+    typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getpathname");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getpathname");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getpathname");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getpathname");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getpathname");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getpathname");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getpathname");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, pathname, maxlen);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetrlimit(void* procstat, void* kp, int32_t which, void* rlimit) {
+    typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getrlimit");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getrlimit");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getrlimit");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getrlimit");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getrlimit");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getrlimit");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getrlimit");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, which, rlimit);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetumask(void* procstat, void* kp, void* maskp) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_getumask");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_getumask");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_getumask");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_getumask");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_getumask");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getumask");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_getumask");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(procstat, kp, maskp);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatOpenCore(const char* filename) {
+    typedef void* (*km_fn_t)(const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_open_core");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_open_core");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_open_core");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_open_core");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_core");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_core");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_core");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(filename);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+void* libcUnixBsdFreebsdlikeFreebsdProcstatOpenKvm(const char* nlistf, const char* memf) {
+    typedef void* (*km_fn_t)(const char*, const char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_open_kvm");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_open_kvm");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_open_kvm");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_open_kvm");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_open_kvm");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_kvm");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_open_kvm");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(nlistf, memf);
+    }
+    errno = ENOSYS;
+    return NULL;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetSocketInfo(void* proc, void* fst, void* sock, char* errbuf) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_get_socket_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_get_socket_info");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_get_socket_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_get_socket_info");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_socket_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_socket_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_socket_info");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(proc, fst, sock, errbuf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetVnodeInfo(void* proc, void* fst, void* vn, char* errbuf) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_get_vnode_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_get_vnode_info");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_get_vnode_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_get_vnode_info");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_vnode_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_vnode_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_vnode_info");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(proc, fst, vn, errbuf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetPtsInfo(void* proc, void* fst, void* pts, char* errbuf) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_get_pts_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_get_pts_info");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_get_pts_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_get_pts_info");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_pts_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_pts_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_pts_info");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(proc, fst, pts, errbuf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdProcstatGetShmInfo(void* proc, void* fst, void* shm, char* errbuf) {
+    typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "procstat_get_shm_info");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_procstat_get_shm_info");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "procstat_get_shm_info");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_procstat_get_shm_info");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "procstat_get_shm_info");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("/usr/lib/libprocstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_shm_info");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_procstat = NULL;
+            static bool km_h_procstat_init = false;
+            if (!km_h_procstat_init) {
+                km_h_procstat_init = true;
+                km_h_procstat = dlopen("libprocstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_procstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_procstat, "procstat_get_shm_info");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(proc, fst, shm, errbuf);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerCreate(int32_t clockId, void* evp, void* timerid) {
+    typedef int32_t (*km_fn_t)(int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timer_create");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timer_create");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timer_create");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timer_create");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_create");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(clockId, evp, timerid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerDelete(void* timerid) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timer_delete");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timer_delete");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timer_delete");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timer_delete");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_delete");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(timerid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerGetoverrun(void* timerid) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timer_getoverrun");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timer_getoverrun");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timer_getoverrun");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timer_getoverrun");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_getoverrun");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(timerid);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerGettime(void* timerid, void* value) {
+    typedef int32_t (*km_fn_t)(void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timer_gettime");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timer_gettime");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timer_gettime");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timer_gettime");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_gettime");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(timerid, value);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdTimerSettime(void* timerid, int32_t flags, void* value, void* ovalue) {
+    typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "timer_settime");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_timer_settime");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "timer_settime");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_timer_settime");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "timer_settime");
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(timerid, flags, value, ovalue);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdDevstatGetnumdevs(void* kd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "devstat_getnumdevs");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_devstat_getnumdevs");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "devstat_getnumdevs");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_devstat_getnumdevs");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getnumdevs");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getnumdevs");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getnumdevs");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int64_t libcUnixBsdFreebsdlikeFreebsdDevstatGetgeneration(void* kd) {
+    typedef int64_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "devstat_getgeneration");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_devstat_getgeneration");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "devstat_getgeneration");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_devstat_getgeneration");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getgeneration");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getgeneration");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getgeneration");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdDevstatGetversion(void* kd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "devstat_getversion");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_devstat_getversion");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "devstat_getversion");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_devstat_getversion");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_getversion");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getversion");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_getversion");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdDevstatCheckversion(void* kd) {
+    typedef int32_t (*km_fn_t)(void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "devstat_checkversion");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_devstat_checkversion");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "devstat_checkversion");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_devstat_checkversion");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_checkversion");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_checkversion");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_checkversion");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(kd);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+
+int32_t libcUnixBsdFreebsdlikeFreebsdDevstatBuildmatch(char* matchStr, void* matches, void* numMatches) {
+    typedef int32_t (*km_fn_t)(char*, void*, void*);
+    static km_fn_t km_fn_ptr = NULL;
+#ifdef _WIN32
+    if (km_fn_ptr == NULL) {
+        HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
+        if (km_h_msvcrt == NULL) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
+        if (km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "devstat_buildmatch");
+        if (km_fn_ptr == NULL && km_h_msvcrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_msvcrt, "_devstat_buildmatch");
+        if (km_fn_ptr == NULL) {
+            HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
+            if (km_h_ucrt == NULL) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
+            if (km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "devstat_buildmatch");
+            if (km_fn_ptr == NULL && km_h_ucrt != NULL) km_fn_ptr = (km_fn_t)(void*)GetProcAddress(km_h_ucrt, "_devstat_buildmatch");
+        }
+    }
+#else
+    if (km_fn_ptr == NULL) {
+        km_fn_ptr = (km_fn_t)dlsym(RTLD_DEFAULT, "devstat_buildmatch");
+#ifdef __APPLE__
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("/usr/lib/libdevstat.dylib", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_buildmatch");
+        }
+#elif defined(__linux__) && !defined(__ANDROID__)
+        if (km_fn_ptr == NULL) {
+            static void* km_h_devstat = NULL;
+            static bool km_h_devstat_init = false;
+            if (!km_h_devstat_init) {
+                km_h_devstat_init = true;
+                km_h_devstat = dlopen("libdevstat.so", RTLD_LAZY | RTLD_LOCAL);
+            }
+            if (km_h_devstat != NULL) km_fn_ptr = (km_fn_t)dlsym(km_h_devstat, "devstat_buildmatch");
+        }
+#endif
+    }
+#endif
+    if (km_fn_ptr != NULL) {
+        return km_fn_ptr(matchStr, matches, numMatches);
+    }
+    errno = ENOSYS;
+    return -1;
+}
+

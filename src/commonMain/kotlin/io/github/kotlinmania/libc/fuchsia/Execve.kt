@@ -1,5 +1,0 @@
-package io.github.kotlinmania.libc.fuchsia
-
-import io.github.kotlinmania.libc.*
-
-public expect fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): Int
