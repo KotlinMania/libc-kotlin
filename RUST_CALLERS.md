@@ -16,11 +16,11 @@ For every Rust crate this repo owns (under `tmp/`), this file lists every **cros
 
 | package | module | inbound use sites | distinct caller crates | distinct caller repos | codex sites |
 |---|---|---:|---:|---:|---:|
-| `libc` | `libc` | 244 | 15 | 13 | 8 |
+| `libc` | `libc` | 336 | 25 | 22 | 8 |
 
 ## `libc`
 
-### Inbound symbols (153 distinct, 244 total `use` sites)
+### Inbound symbols (166 distinct, 336 total `use` sites)
 
 Sorted by codex demand, then total demand. The first symbols are the priority queue for porting `libc`.
 
@@ -35,9 +35,10 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `tokio-kotlin/tokio` `src/net/unix/ucred.rs:136` — `use libc::c_void`
 - `tokio-kotlin/tokio` `src/net/unix/ucred.rs:215` — `use libc::c_void`
 
-#### `libc` — 6 site(s) (1 codex, 5 other, 3 caller crates)
+#### `libc` — 7 site(s) (1 codex, 6 other, 4 caller crates)
 
 - ✅ `codex-kotlin/codex-utils-pty` `src/pipe.rs:25` — `use libc`
+- `num-cpus-kotlin/num_cpus` `src/linux.rs:8` — `use libc`
 - `portable-pty-kotlin/portable-pty` `src/lib.rs:43` — `use libc`
 - `portable-pty-kotlin/portable-pty` `src/unix.rs:6` — `use libc`
 - `shared-library-kotlin/shared_library` `src/dynamic_library.rs:21` — `use libc`
@@ -80,18 +81,104 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `openssl-sys-kotlin/openssl-sys` `src/err.rs:1` — `use libc::*`
 - _… and 51 more site(s)._
 
-#### `libc::c_int` — 4 site(s) (0 codex, 4 other, 3 caller crates)
+#### `libc::size_t` — 27 site(s) (0 codex, 27 other, 5 caller crates)
 
+- `crossterm-kotlin/crossterm` `src/terminal/sys/file_descriptor.rs:4` — `use libc::size_t`
+- `landlock-kotlin/landlock` `src/uapi/mod.rs:61` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/abstract_.rs:5` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/abstract_.rs:20` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/longobject.rs:11` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/objimpl.rs:3` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/pymem.rs:2` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/longobject.rs:6` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/objimpl.rs:2` — `use libc::size_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/pymem.rs:2` — `use libc::size_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/abstract_.rs:5` — `use libc::size_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/cpython/abstract_.rs:20` — `use libc::size_t`
+- _… and 15 more site(s)._
+
+#### `libc::wchar_t` — 22 site(s) (0 codex, 22 other, 3 caller crates)
+
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/initconfig.rs:7` — `use libc::wchar_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/pylifecycle.rs:3` — `use libc::wchar_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/unicodeobject.rs:5` — `use libc::wchar_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/fileutils.rs:3` — `use libc::wchar_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/pylifecycle.rs:4` — `use libc::wchar_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/sysmodule.rs:3` — `use libc::wchar_t`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/unicodeobject.rs:4` — `use libc::wchar_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/cpython/initconfig.rs:7` — `use libc::wchar_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/cpython/pylifecycle.rs:3` — `use libc::wchar_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/cpython/unicodeobject.rs:5` — `use libc::wchar_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/fileutils.rs:3` — `use libc::wchar_t`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/pylifecycle.rs:4` — `use libc::wchar_t`
+- _… and 10 more site(s)._
+
+#### `libc::FILE` — 11 site(s) (0 codex, 11 other, 4 caller crates)
+
+- `numpy-kotlin/numpy` `src/npyffi/array.rs:8` — `use libc::FILE`
+- `numpy-kotlin/numpy` `src/npyffi/objects.rs:5` — `use libc::FILE`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/marshal.rs:3` — `use libc::FILE`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/cpython/pythonrun.rs:8` — `use libc::FILE`
+- `pyo3-ffi-kotlin/pyo3-ffi` `src/pythonrun.rs:6` — `use libc::FILE`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/cpython/marshal.rs:3` — `use libc::FILE`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/cpython/pythonrun.rs:8` — `use libc::FILE`
+- `pyo3-kotlin/pyo3` `pyo3-ffi/src/pythonrun.rs:6` — `use libc::FILE`
+- `pyo3-kotlin/pyo3-ffi` `src/cpython/marshal.rs:3` — `use libc::FILE`
+- `pyo3-kotlin/pyo3-ffi` `src/cpython/pythonrun.rs:8` — `use libc::FILE`
+- `pyo3-kotlin/pyo3-ffi` `src/pythonrun.rs:6` — `use libc::FILE`
+
+#### `libc::c_int` — 8 site(s) (0 codex, 8 other, 5 caller crates)
+
+- `candle-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_int`
+- `candle-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_int`
+- `candle-ug-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_int`
+- `candle-ug-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_int`
 - `landlock-kotlin/landlock` `src/errors.rs:4` — `use libc::c_int`
 - `landlock-kotlin/landlock` `src/uapi/mod.rs:61` — `use libc::c_int`
 - `openssl-sys-kotlin/openssl-sys` `src/lib.rs:13` — `pub_use libc::c_int`
 - `tokio-kotlin/tokio` `tests/signal_realtime.rs:9` — `use libc::c_int`
+
+#### `libc::c_char` — 5 site(s) (0 codex, 5 other, 3 caller crates)
+
+- `candle-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_char`
+- `candle-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_char`
+- `candle-ug-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_char`
+- `candle-ug-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_char`
+- `openssl-sys-kotlin/openssl-sys` `src/lib.rs:46` — `use libc::c_char`
+
+#### `libc::c_float` — 5 site(s) (0 codex, 5 other, 3 caller crates)
+
+- `accelerate-src-kotlin/accelerate-src` `tests/lib.rs:3` — `use libc::c_float`
+- `candle-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_float`
+- `candle-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_float`
+- `candle-ug-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_float`
+- `candle-ug-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_float`
+
+#### `libc::c_double` — 4 site(s) (0 codex, 4 other, 2 caller crates)
+
+- `candle-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_double`
+- `candle-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_double`
+- `candle-ug-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_double`
+- `candle-ug-kotlin/candle-core` `src/mkl.rs:2` — `use libc::c_double`
+
+#### `libc::c_ulong` — 4 site(s) (0 codex, 4 other, 3 caller crates)
+
+- `candle-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_ulong`
+- `candle-ug-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_ulong`
+- `sha1-kotlin/cpufeatures` `src/aarch64.rs:85` — `use libc::c_ulong`
+- `sha1-kotlin/cpufeatures` `src/loongarch64.rs:80` — `use libc::c_ulong`
 
 #### `libc::SOL_SOCKET` — 3 site(s) (0 codex, 3 other, 2 caller crates)
 
 - `socket2-kotlin/socket2` `src/sys/unix.rs:199` — `pub_use libc::SOL_SOCKET`
 - `tokio-kotlin/tokio` `src/net/unix/ucred.rs:78` — `use libc::SOL_SOCKET`
 - `tokio-kotlin/tokio` `src/net/unix/ucred.rs:136` — `use libc::SOL_SOCKET`
+
+#### `libc::c_long` — 3 site(s) (0 codex, 3 other, 3 caller crates)
+
+- `candle-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_long`
+- `candle-ug-kotlin/candle-core` `src/accelerate.rs:2` — `use libc::c_long`
+- `openssl-sys-kotlin/openssl-sys` `src/lib.rs:46` — `use libc::c_long`
 
 #### `libc::getsockopt` — 3 site(s) (0 codex, 3 other, 1 caller crates)
 
@@ -120,20 +207,25 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `filedescriptor-kotlin/filedescriptor` `src/unix.rs:440` — `pub_use libc::POLLOUT`
 - `filedescriptor-kotlin/filedescriptor` `src/unix.rs:467` — `use libc::POLLOUT`
 
-#### `libc::c_ulong` — 2 site(s) (0 codex, 2 other, 1 caller crates)
-
-- `sha1-kotlin/cpufeatures` `src/aarch64.rs:85` — `use libc::c_ulong`
-- `sha1-kotlin/cpufeatures` `src/loongarch64.rs:80` — `use libc::c_ulong`
-
 #### `libc::getpeereid` — 2 site(s) (0 codex, 2 other, 1 caller crates)
 
 - `tokio-kotlin/tokio` `src/net/unix/ucred.rs:178` — `use libc::getpeereid`
 - `tokio-kotlin/tokio` `src/net/unix/ucred.rs:215` — `use libc::getpeereid`
 
-#### `libc::size_t` — 2 site(s) (0 codex, 2 other, 2 caller crates)
+#### `libc::pid_t` — 2 site(s) (0 codex, 2 other, 2 caller crates)
 
-- `crossterm-kotlin/crossterm` `src/terminal/sys/file_descriptor.rs:4` — `use libc::size_t`
-- `landlock-kotlin/landlock` `src/uapi/mod.rs:61` — `use libc::size_t`
+- `prometheus-kotlin/prometheus` `src/process_collector.rs:14` — `pub_use libc::pid_t`
+- `tokio-kotlin/tokio` `src/net/unix/ucred.rs:215` — `use libc::pid_t`
+
+#### `libc::pthread_set_qos_class_self_np` — 2 site(s) (0 codex, 2 other, 2 caller crates)
+
+- `candle-kotlin/candle-core` `src/utils.rs:560` — `use libc::pthread_set_qos_class_self_np`
+- `candle-ug-kotlin/candle-core` `src/utils.rs:382` — `use libc::pthread_set_qos_class_self_np`
+
+#### `libc::qos_class_t::QOS_CLASS_USER_INTERACTIVE` — 2 site(s) (0 codex, 2 other, 2 caller crates)
+
+- `candle-kotlin/candle-core` `src/utils.rs:560` — `use libc::qos_class_t::QOS_CLASS_USER_INTERACTIVE`
+- `candle-ug-kotlin/candle-core` `src/utils.rs:382` — `use libc::qos_class_t::QOS_CLASS_USER_INTERACTIVE`
 
 #### `libc::syscall` — 2 site(s) (0 codex, 2 other, 2 caller crates)
 
@@ -156,6 +248,10 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 #### `libc::AF_UNIX` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `socket2-kotlin/socket2` `src/sys/unix.rs:72` — `pub_use libc::AF_UNIX`
+
+#### `libc::CLOCK_MONOTONIC_COARSE` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `prometheus-kotlin/prometheus` `src/histogram.rs:556` — `use libc::CLOCK_MONOTONIC_COARSE`
 
 #### `libc::ENOSYS` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
@@ -545,17 +641,13 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 
 - `getrandom-kotlin/getrandom` `src/util_libc.rs:21` — `use libc::_errnop as errno_location`
 
-#### `libc::c_char` — 1 site(s) (0 codex, 1 other, 1 caller crates)
-
-- `openssl-sys-kotlin/openssl-sys` `src/lib.rs:46` — `use libc::c_char`
-
-#### `libc::c_long` — 1 site(s) (0 codex, 1 other, 1 caller crates)
-
-- `openssl-sys-kotlin/openssl-sys` `src/lib.rs:46` — `use libc::c_long`
-
 #### `libc::cfmakeraw` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `crossterm-kotlin/crossterm` `src/terminal/sys/unix.rs:10` — `use libc::cfmakeraw`
+
+#### `libc::clock_gettime` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `prometheus-kotlin/prometheus` `src/histogram.rs:556` — `use libc::clock_gettime`
 
 #### `libc::errnoGet` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
@@ -609,13 +701,25 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 
 - `socket2-kotlin/socket2` `src/sys/unix.rs:199` — `pub_use libc::linger`
 
+#### `libc::mmap` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `memmap2-kotlin/memmap2` `src/unix.rs:57` — `use libc::mmap`
+
+#### `libc::mmap64` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `memmap2-kotlin/memmap2` `src/unix.rs:51` — `use libc::mmap64 as mmap`
+
 #### `libc::msghdr` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `socket2-kotlin/socket2` `src/sys/unix.rs:675` — `pub_use libc::msghdr`
 
-#### `libc::pid_t` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+#### `libc::off64_t` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
-- `tokio-kotlin/tokio` `src/net/unix/ucred.rs:215` — `use libc::pid_t`
+- `memmap2-kotlin/memmap2` `src/unix.rs:51` — `use libc::off64_t as off_t`
+
+#### `libc::off_t` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `memmap2-kotlin/memmap2` `src/unix.rs:57` — `use libc::off_t`
 
 #### `libc::pollfd` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
@@ -664,6 +768,10 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 #### `libc::termios` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `crossterm-kotlin/crossterm` `src/terminal/sys/unix.rs:10` — `use libc::termios as Termios`
+
+#### `libc::timespec` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `prometheus-kotlin/prometheus` `src/histogram.rs:555` — `pub_use libc::timespec`
 
 #### `libc::timeval` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
